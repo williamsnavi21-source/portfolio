@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navi Wang | fILM</title>
+    <title>Navi Wang | 视觉创作作品集</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
@@ -100,7 +100,7 @@
                     <p>已有四年视频剪辑经验，擅长制作宣传片、纪录片及政府汇报片等多类型作品。我深谙后期制作流程，能够精准把控影片节奏、画面选择与音效处理，确保作品高质量、准时交付。</p>
                     <p>注重团队与客户的沟通协作，情绪稳定，这让我在高压环境下依然能保持高效产出。喜欢在工作中不断尝试新技术与手法，让每一部作品更生动有力，赋予影像独特的生命力。</p>
                     <div class="grid grid-cols-2 gap-10 pt-12 text-[11px] tracking-widest uppercase font-bold text-[#2D2D2D]">
-                        <div class="space-y-3"><p class="text-gray-400 font-normal">Expertise</p><p>AI / 宣传片 / 纪录片 / 汇报片</p></div>
+                        <div class="space-y-3"><p class="text-gray-400 font-normal">Expertise</p><p>宣传片 / 纪录片 / 汇报片</p></div>
                         <div class="space-y-3"><p class="text-gray-400 font-normal">Mindset</p><p>沟通协作 / 情绪稳定 / 持续学习</p></div>
                     </div>
                 </div>
@@ -116,21 +116,26 @@
                 <button class="filter-btn" data-filter="promo">宣传片</button>
                 <button class="filter-btn" data-filter="doc">纪录片</button>
                 <button class="filter-btn" data-filter="film">微电影</button>
-                <button class="filter-btn" data-filter="aigc">AI</button>
+                <button class="filter-btn" data-filter="aigc">AIGC</button>
             </div>
         </div>
 
         <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-24 md:px-[5%]">
+            
             <div class="work-card reveal" data-category="promo">
-                <div class="group relative aspect-[16/9] overflow-hidden bg-gray-50 rounded-sm cursor-pointer shadow-sm">
-                    <img src="https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=1200" class="w-full h-full object-cover grayscale-[40%] group-hover:grayscale-0 transition-all duration-1000 group-hover:scale-105">
-                </div>
+                <div class="relative overflow-hidden bg-gray-50 rounded-sm shadow-sm">
+                    <div style="padding:56.25% 0 0 0;position:relative;">
+                        <iframe src="https://player.vimeo.com/video/1169577531?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="“榕树下”--劳模工匠讲堂系列第一课 v24没配音结尾_batch"></iframe>
+                    </div>
+                    </div>
+                
                 <div class="mt-8">
-                    <h3 class="text-xl font-medium italic tracking-tight text-[#2D2D2D]">Brand Vision 2026</h3>
-                    <p class="text-[10px] text-gray-400 uppercase tracking-[0.2em] mt-3">Commercial / Editor</p>
+                    <h3 class="text-xl font-medium italic tracking-tight text-[#2D2D2D]">“榕树下”--劳模工匠讲堂</h3>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-[0.2em] mt-3">服务单位：福州国网 / 宣传片</p>
                 </div>
             </div>
-        </div>
+
+            </div>
     </section>
 
     <footer id="contact" class="py-32 px-8 border-t border-gray-100 bg-white relative z-10">
@@ -184,6 +189,8 @@
         </div>
     </footer>
 
+    <script src="https://player.vimeo.com/api/player.js"></script>
+    
     <script>
         // 筛选逻辑
         const filterButtons = document.querySelectorAll('.filter-btn');
@@ -216,7 +223,7 @@
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         
-        // 阻止表单默认提交（仅做UI展示，避免刷新页面）
+        // 阻止表单默认提交
         document.querySelector('form').addEventListener('submit', function(e) {
             e.preventDefault();
             alert('此表单当前仅做视觉展示。如需联系，请直接添加微信或发送邮件！');
@@ -224,4 +231,3 @@
     </script>
 </body>
 </html>
-
