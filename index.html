@@ -7,264 +7,235 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
-        /*
-        * New Color Palette inspired by image_0.png:
-        * Background: #FFFFFF (White)
-        * Primary Text: #2D2D2D (Dark Grey)
-        * Secondary Text: #6C757D (Grey from labels)
-        * Accent: #3D99F2 (Soft, low-saturation blue from the gradient)
-        * Details (white dots): #FFFFFF
-        */
-
         body {
-            background-color: #FFFFFF; /* Pure white background from image_0.png */
-            color: #2D2D2D; /* Dark charcoal grey for primary text from image_0.png */
+            background-color: #FFFFFF;
+            color: #2D2D2D;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            overflow-x: hidden;
         }
 
-        /* Define primary accent blue for text and borders */
-        .text-accent-blue {
-            color: #3D99F2; /* Soft blue from image_0.png */
-        }
-        .border-accent-blue {
-            border-color: #3D99F2; /* Soft blue for borders */
-        }
+        /* 隐藏滚动条 */
+        ::-webkit-scrollbar { display: none; }
 
-        /* Hide scrollbars but keep functionality */
-        ::-webkit-scrollbar {
-            display: none;
-        }
-
-        /* Clean frosted glass navigation with dark text on white */
         .nav-blur {
-            background: rgba(255, 255, 255, 0.85); /* Slightly translucent white background */
-            backdrop-filter: blur(10px); /* Clean frosted effect */
-            border-bottom: 0.5px solid rgba(0, 0, 0, 0.05); /* Minimal separator */
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 0.5px solid rgba(0, 0, 0, 0.05);
         }
 
-        /* Style for interactive elements (like work categories) */
-        .hover-nav-item:hover {
-            color: #2D2D2D; /* White hover color for nav items, matching image_0.png dark text */
-        }
-
-        /* Work Card Hover: keep subtle, now using the dark grey accent on hover details */
-        .work-card img {
-            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-        }
-        .work-card:hover img {
-            transform: scale(1.05);
-        }
-        .work-card:hover .card-meta {
-            opacity: 1;
-            transform: translateY(0);
-        }
-        .card-meta {
-            background: rgba(45, 45, 45, 0.6); /* Slightly darker card overlay for text contrast */
-        }
-
-        /* Hero Animation: Blue mood blur */
+        /* --- 动态背景动画 --- */
         .mood-blur-container {
             position: absolute;
             inset: 0;
             overflow: hidden;
-            opacity: 0.3; /* Subtle blue ambient blur from image_0.png */
+            opacity: 0.25;
+            pointer-events: none;
         }
         .mood-blur {
             position: absolute;
-            top: 1/3;
-            left: 2/3;
             width: 800px;
             height: 800px;
-            background-color: #3D99F2; /* Pulse dynamic element color, from image_0.png */
+            background-color: #3D99F2;
             border-radius: 50%;
-            filter: blur(200px); /* Very soft diffuse light */
-            transform: translate(-50%, -50%);
-            animation: pulseFade 6s infinite alternate;
+            filter: blur(200px);
         }
-        @keyframes pulseFade {
-            0% { opacity: 0.6; transform: translate(-50%, -50%) scale(0.9); }
-            100% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        @keyframes flowRightWithBreathing {
+            0% { opacity: 0.4; transform: translate(-100vw, -50%) scale(0.9); }
+            50% { opacity: 1; transform: translate(-50vw, -50%) scale(1.1); }
+            100% { opacity: 0.4; transform: translate(100vw, -50%) scale(0.9); }
         }
+        .mood-blur-1 { top: 40%; animation: flowRightWithBreathing 20s infinite ease-in-out; }
+        .mood-blur-2 { top: 60%; animation: flowRightWithBreathing 20s infinite ease-in-out; animation-delay: -10s; }
 
-        /* In-Viewport Animation Trigger class */
-        .reveal {
+        /* --- 作品卡片逻辑 --- */
+        .work-card {
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .work-card.hidden-item {
             opacity: 0;
-            transform: translateY(20px);
-            transition: all 0.8s ease-out;
+            transform: scale(0.95) translateY(20px);
+            pointer-events: none;
+            position: absolute; /* 隐藏时释放空间 */
+            z-index: -1;
         }
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
+        .work-card img { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
+        .work-card:hover img { transform: scale(1.05); }
+        
+        /* 筛选按钮激活状态 */
+        .filter-btn.active {
+            color: #2D2D2D;
+            border-bottom: 1.5px solid #2D2D2D;
         }
 
-        /* Glassmorphism Play Button from image_0.png */
-        .play-button-container {
-            position: relative;
-            z-index: 10;
-        }
+        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* 播放按钮样式 */
         .play-button {
-            display: inline-flex;
-            width: 120px;
-            height: 120px;
-            border-radius: 20px;
-            background: rgba(255, 255, 255, 0.2); /* Translucent white base from image_0.png */
-            border: 1px solid rgba(255, 255, 255, 0.3); /* Minimal border */
-            backdrop-filter: blur(10px); /* Frosty glass effect */
-            align-items: center;
-            justify-content: center;
-            transition: background 0.3s;
-        }
-        .play-button:hover {
-            background: rgba(255, 255, 255, 0.3);
+            display: inline-flex; width: 120px; height: 120px; border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2); border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(10px); align-items: center; justify-content: center;
         }
         .play-triangle {
-            width: 0;
-            height: 0;
-            border-top: 20px solid transparent;
-            border-bottom: 20px solid transparent;
-            border-left: 35px solid rgba(255, 255, 255, 0.9); /* Opaque white play triangle from image_0.png */
-            margin-left: 10px; /* Offset triangle within glass */
+            width: 0; height: 0; border-top: 20px solid transparent; border-bottom: 20px solid transparent;
+            border-left: 35px solid rgba(255, 255, 255, 0.9); margin-left: 10px;
         }
-        .white-dot {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background-color: #FFFFFF; /* Minimal dot from image_0.png */
-            border-radius: 50%;
-            animation: fadeDot 4s infinite alternate;
-        }
-        .dot-1 {
-            top: 20%;
-            left: -10%;
-        }
-        .dot-2 {
-            bottom: -30%;
-            right: 10%;
-        }
-        @keyframes fadeDot {
-            0% { opacity: 0.3; }
-            100% { opacity: 1; }
-        }
-
     </style>
 </head>
 <body>
 
     <nav class="fixed w-full z-50 nav-blur px-6 py-4 flex justify-between items-center">
-        <div class="text-sm font-bold tracking-widest uppercase" style="color: #2D2D2D;">Navi Wang</div>
-        <div class="hidden md:flex space-x-12 text-xs tracking-widest uppercase" style="color: #6C757D;">
-            <a href="#work" class="hover-nav-item hover:text-[#2D2D2D] transition-colors">Works / 作品</a>
-            <a href="#about" class="hover-nav-item hover:text-[#2D2D2D] transition-colors">About / 关于</a>
-            <a href="#contact" class="hover-nav-item hover:text-[#2D2D2D] transition-colors">Contact / 联系</a>
+        <div class="text-sm font-bold tracking-widest uppercase">Navi Wang</div>
+        <div class="hidden md:flex space-x-12 text-xs tracking-widest uppercase text-gray-500">
+            <a href="#work" class="hover:text-[#2D2D2D] transition-colors">Works</a>
+            <a href="#about" class="hover:text-[#2D2D2D] transition-colors">About</a>
+            <a href="#contact" class="hover:text-[#2D2D2D] transition-colors">Contact</a>
         </div>
-        <div class="md:hidden text-xs" style="color: #2D2D2D;">MENU</div>
+        <div class="md:hidden text-xs">MENU</div>
     </nav>
 
-    <section class="relative h-screen flex items-center justify-center overflow-hidden">
+    <section class="relative h-screen flex items-center justify-center">
         <div class="mood-blur-container">
-            <div class="mood-blur"></div>
+            <div class="mood-blur mood-blur-1"></div>
+            <div class="mood-blur mood-blur-2"></div>
         </div>
 
         <div class="max-w-[1400px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 items-center gap-12 relative z-10">
-            
             <div class="text-left space-y-4 reveal active">
-                <p class="text-base tracking-[0.3em] uppercase text-[#6C757D] animate__animated animate__fadeIn">HELLO I'M NAVI WANG</p>
-                <h1 class="text-6xl md:text-8xl font-black tracking-tighter animate__animated animate__fadeIn animate__delay-1s" style="color: #2D2D2D;">王楠辉</h1>
-                <p class="text-3xl font-light italic text-[#2D2D2D] animate__animated animate__fadeIn animate__delay-1s">Video Editor</p>
+                <p class="text-base tracking-[0.3em] uppercase text-gray-500 animate__animated animate__fadeIn">HELLO I'M NAVI WANG</p>
+                <h1 class="text-6xl md:text-8xl font-black tracking-tighter" style="color: #2D2D2D;">王楠辉</h1>
+                <p class="text-3xl font-light italic text-gray-700">Video Editor & Director</p>
                 
-                <div class="flex flex-wrap gap-4 pt-8 animate__animated animate__fadeIn animate__delay-2s">
-                    <span class="px-5 py-2.5 rounded-full border border-[#2D2D2D] text-xs font-bold text-[#2D2D2D] bg-[#FFFFFF] hover:bg-[#F2F2F2] transition">
-                        [VIDEO EDITOR]
-                    </span>
-                    <span class="px-5 py-2.5 rounded-full border border-[#2D2D2D] text-xs font-bold text-[#2D2D2D] bg-[#FFFFFF] hover:bg-[#F2F2F2] transition">
-                        [COLORIST]
-                    </span>
-                    <span class="px-5 py-2.5 rounded-full border border-[#2D2D2D] text-xs font-bold text-[#2D2D2D] bg-[#FFFFFF] hover:bg-[#F2F2F2] transition">
-                        [MOTION GRAPHICS]
-                    </span>
+                <div class="flex flex-wrap gap-4 pt-8">
+                    <span class="px-5 py-2.5 rounded-full border border-[#2D2D2D] text-xs font-bold bg-white">[VIDEO EDITOR]</span>
+                    <span class="px-5 py-2.5 rounded-full border border-[#2D2D2D] text-xs font-bold bg-white">[COLORIST]</span>
+                    <span class="px-5 py-2.5 rounded-full border border-[#2D2D2D] text-xs font-bold bg-white">[AIGC]</span>
                 </div>
             </div>
 
-            <div class="flex items-center justify-center md:justify-end animate__animated animate__fadeIn animate__delay-3s play-button-container">
-                <div class="play-button">
-                    <div class="play-triangle"></div>
-                </div>
-                <div class="white-dot dot-1"></div>
-                <div class="white-dot dot-2"></div>
+            <div class="flex items-center justify-center md:justify-end animate__animated animate__fadeIn animate__delay-2s">
+                <div class="play-button"><div class="play-triangle"></div></div>
             </div>
-            
         </div>
     </section>
 
     <section id="work" class="max-w-[1400px] mx-auto px-6 py-32">
-        <div class="flex space-x-8 mb-16 text-xs tracking-widest uppercase reveal" style="color: #6C757D;">
-            <button class="text-[#2D2D2D] border-b border-[#2D2D2D] pb-1">All</button>
-            <button class="hover:text-[#2D2D2D] transition-all pb-1">Commercial</button>
-            <button class="hover:text-[#2D2D2D] transition-all pb-1">Documentary</button>
-            <button class="hover:text-[#2D2D2D] transition-all pb-1">AI Creative</button>
+        <div class="flex flex-wrap gap-8 mb-16 text-xs tracking-widest uppercase text-gray-400 reveal active">
+            <button class="filter-btn active transition-all pb-1" data-filter="all">全部</button>
+            <button class="filter-btn transition-all pb-1" data-filter="promo">宣传片</button>
+            <button class="filter-btn transition-all pb-1" data-filter="doc">纪录片</button>
+            <button class="filter-btn transition-all pb-1" data-filter="film">微电影</button>
+            <button class="filter-btn transition-all pb-1" data-filter="aigc">AIGC</button>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-            <div class="work-card group cursor-pointer reveal">
-                <div class="relative aspect-video overflow-hidden rounded-sm bg-[#F2F2F2]">
-                    <img src="https://images.unsplash.com/photo-1492691523567-61723c275df4?auto=format&fit=crop&w=1200" alt="Title" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
-                    <div class="card-meta absolute inset-0 flex flex-col justify-end p-8 opacity-0 transition-all duration-500 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0">
-                        <span class="text-xs text-white mb-2 uppercase tracking-widest">Commercial</span>
-                        <h3 class="text-2xl font-light italic text-white">The Silent Night / 某品牌宣传片</h3>
-                        <p class="text-xs text-gray-100 mt-2">2026 / Editor & Colorist</p>
+        <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-12 relative transition-all duration-500">
+            
+            <div class="work-card reveal active" data-category="promo">
+                <div class="relative aspect-video overflow-hidden rounded-sm bg-gray-100">
+                    <img src="https://images.unsplash.com/photo-1492691523567-61723c275df4?auto=format&fit=crop&w=1200" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/40 flex flex-col justify-end p-8 opacity-0 hover:opacity-100 transition-opacity">
+                        <span class="text-xs text-white uppercase tracking-widest">宣传片</span>
+                        <h3 class="text-xl text-white italic mt-2">某品牌 2026 年度视觉</h3>
                     </div>
                 </div>
+                <div class="mt-4 flex justify-between items-center">
+                    <span class="text-xs font-bold uppercase tracking-tighter">Brand Campaign</span>
+                    <span class="text-[10px] text-gray-400">2026</span>
+                </div>
             </div>
-            </div>
-    </section>
 
-    <section id="about" class="bg-[#F2F2F2] py-32">
-        <div class="max-w-4xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
-            <div class="reveal">
-                <h2 class="text-3xl font-light mb-8 italic" style="color: #2D2D2D;">剪辑是关于节奏的呼吸。</h2>
-                <p class="text-lg leading-relaxed font-light" style="color: #6C757D;">
-                    我是王楠辉，拥有4年高端视觉创作经验。我倾向于在克制的叙事中寻找爆发力，
-                    通过精准的剪辑点建立情感链接。擅长宣传片、纪录片及 AI 视觉生成。
-                </p>
-            </div>
-            <div class="space-y-6 text-xs tracking-[0.2em] uppercase reveal" style="color: #6C757D;">
-                <div>
-                    <p class="mb-2" style="color: #2D2D2D;">Skills</p>
-                    <p>Premiere / DaVinci Resolve / After Effects / Midjourney / Sora</p>
+            <div class="work-card reveal active" data-category="aigc">
+                <div class="relative aspect-video overflow-hidden rounded-sm bg-gray-100">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/40 flex flex-col justify-end p-8 opacity-0 hover:opacity-100 transition-opacity">
+                        <span class="text-xs text-white uppercase tracking-widest">AIGC</span>
+                        <h3 class="text-xl text-white italic mt-2">数字生命：AI 生成短片</h3>
+                    </div>
                 </div>
-                <div>
-                    <p class="mb-2" style="color: #2D2D2D;">Awards</p>
-                    <p>Short Film Festival 2025 - Best Editing</p>
+                <div class="mt-4 flex justify-between items-center">
+                    <span class="text-xs font-bold uppercase tracking-tighter">AI Experimental</span>
+                    <span class="text-[10px] text-gray-400">2025</span>
                 </div>
             </div>
+
+            <div class="work-card reveal active" data-category="doc">
+                <div class="relative aspect-video overflow-hidden rounded-sm bg-gray-100">
+                    <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=1200" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/40 flex flex-col justify-end p-8 opacity-0 hover:opacity-100 transition-opacity">
+                        <span class="text-xs text-white uppercase tracking-widest">纪录片</span>
+                        <h3 class="text-xl text-white italic mt-2">《最后的手艺人》</h3>
+                    </div>
+                </div>
+                <div class="mt-4 flex justify-between items-center">
+                    <span class="text-xs font-bold uppercase tracking-tighter">Documentary</span>
+                    <span class="text-[10px] text-gray-400">2024</span>
+                </div>
+            </div>
+
+             <div class="work-card reveal active" data-category="film">
+                <div class="relative aspect-video overflow-hidden rounded-sm bg-gray-100">
+                    <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=1200" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-black/40 flex flex-col justify-end p-8 opacity-0 hover:opacity-100 transition-opacity">
+                        <span class="text-xs text-white uppercase tracking-widest">微电影</span>
+                        <h3 class="text-xl text-white italic mt-2">午后三点的梦境</h3>
+                    </div>
+                </div>
+                <div class="mt-4 flex justify-between items-center">
+                    <span class="text-xs font-bold uppercase tracking-tighter">Short Film</span>
+                    <span class="text-[10px] text-gray-400">2026</span>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <footer id="contact" class="py-32 px-6 text-center reveal">
-        <h2 class="text-xs tracking-[0.5em] uppercase mb-8" style="color: #6C757D;">Start a Conversation</h2>
-        <a href="mailto:navi@example.com" class="text-3xl md:text-5xl font-extralight hover:text-accent-blue transition-colors duration-300 underline underline-offset-8 decoration-[0.5px]">hello@navi.design</a>
-        
-        <div class="flex justify-center space-x-12 mt-20 text-xs tracking-widest text-gray-600">
-            <a href="#" class="hover:text-[#2D2D2D] transition-colors">WECHAT</a>
-            <a href="#" class="hover:text-[#2D2D2D] transition-colors">INSTAGRAM</a>
-            <a href="#" class="hover:text-[#2D2D2D] transition-colors">VIMEO</a>
-        </div>
-        <p class="mt-20 text-[10px] uppercase tracking-widest" style="color: #6C757D;">© 2026 Navi Wang. All Rights Reserved.</p>
+    <footer id="contact" class="py-32 px-6 text-center reveal active">
+        <h2 class="text-xs tracking-[0.5em] uppercase mb-8 text-gray-400">Start a Conversation</h2>
+        <a href="mailto:hello@navi.design" class="text-3xl md:text-5xl font-extralight hover:text-[#3D99F2] transition-colors underline underline-offset-8">hello@navi.design</a>
+        <p class="mt-20 text-[10px] uppercase tracking-widest text-gray-400">© 2026 Navi Wang.</p>
     </footer>
 
     <script>
-        // Simple Scroll-Reveal Script using Intersection Observer
-        const observerOptions = { threshold: 0.1 };
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.work-card');
+
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                // 1. 更新按钮状态
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+
+                // 2. 执行筛选逻辑
+                const filterValue = button.getAttribute('data-filter');
+
+                projectCards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    
+                    if (filterValue === 'all' || filterValue === cardCategory) {
+                        card.classList.remove('hidden-item');
+                        // 稍延迟显示，增加过渡感
+                        setTimeout(() => {
+                            card.style.display = 'block';
+                        }, 10);
+                    } else {
+                        card.classList.add('hidden-item');
+                        // 动画结束后隐藏 DOM，防止占位
+                        setTimeout(() => {
+                            if(card.classList.contains('hidden-item')) card.style.display = 'none';
+                        }, 500);
+                    }
+                });
+            });
+        });
+
+        // 滚动显示脚本
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                }
+                if (entry.isIntersecting) entry.target.classList.add('active');
             });
-        }, observerOptions);
+        }, { threshold: 0.1 });
 
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
     </script>
 </body>
 </html>
-
