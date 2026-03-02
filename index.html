@@ -7,83 +7,233 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
-        body { background-color: #000; color: #fff; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
-        .accent-blue { color: #3A86FF; }
-        .bg-accent-blue { background-color: #3A86FF; }
-        /* 隐藏滚动条但保留功能 */
-        ::-webkit-scrollbar { display: none; }
-        /* 磨砂玻璃导航 */
-        .nav-blur { background: rgba(0, 0, 0, 0.7); backdrop-filter: blur(20px); border-bottom: 0.5px solid rgba(255,255,255,0.1); }
-        /* 视频卡片悬停 */
-        .work-card img { transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1); }
-        .work-card:hover img { transform: scale(1.05); }
-        .work-card:hover .card-meta { opacity: 1; transform: translateY(0); }
-        /* 动效：进场淡入 */
-        .reveal { opacity: 0; transform: translateY(20px); transition: all 0.8s ease-out; }
-        .reveal.active { opacity: 1; transform: translateY(0); }
+        /*
+        * New Color Palette inspired by image_0.png:
+        * Background: #FFFFFF (White)
+        * Primary Text: #2D2D2D (Dark Grey)
+        * Secondary Text: #6C757D (Grey from labels)
+        * Accent: #3D99F2 (Soft, low-saturation blue from the gradient)
+        * Details (white dots): #FFFFFF
+        */
+
+        body {
+            background-color: #FFFFFF; /* Pure white background from image_0.png */
+            color: #2D2D2D; /* Dark charcoal grey for primary text from image_0.png */
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        /* Define primary accent blue for text and borders */
+        .text-accent-blue {
+            color: #3D99F2; /* Soft blue from image_0.png */
+        }
+        .border-accent-blue {
+            border-color: #3D99F2; /* Soft blue for borders */
+        }
+
+        /* Hide scrollbars but keep functionality */
+        ::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* Clean frosted glass navigation with dark text on white */
+        .nav-blur {
+            background: rgba(255, 255, 255, 0.85); /* Slightly translucent white background */
+            backdrop-filter: blur(10px); /* Clean frosted effect */
+            border-bottom: 0.5px solid rgba(0, 0, 0, 0.05); /* Minimal separator */
+        }
+
+        /* Style for interactive elements (like work categories) */
+        .hover-nav-item:hover {
+            color: #2D2D2D; /* White hover color for nav items, matching image_0.png dark text */
+        }
+
+        /* Work Card Hover: keep subtle, now using the dark grey accent on hover details */
+        .work-card img {
+            transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+        .work-card:hover img {
+            transform: scale(1.05);
+        }
+        .work-card:hover .card-meta {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .card-meta {
+            background: rgba(45, 45, 45, 0.6); /* Slightly darker card overlay for text contrast */
+        }
+
+        /* Hero Animation: Blue mood blur */
+        .mood-blur-container {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            opacity: 0.3; /* Subtle blue ambient blur from image_0.png */
+        }
+        .mood-blur {
+            position: absolute;
+            top: 1/3;
+            left: 2/3;
+            width: 800px;
+            height: 800px;
+            background-color: #3D99F2; /* Pulse dynamic element color, from image_0.png */
+            border-radius: 50%;
+            filter: blur(200px); /* Very soft diffuse light */
+            transform: translate(-50%, -50%);
+            animation: pulseFade 6s infinite alternate;
+        }
+        @keyframes pulseFade {
+            0% { opacity: 0.6; transform: translate(-50%, -50%) scale(0.9); }
+            100% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+        }
+
+        /* In-Viewport Animation Trigger class */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Glassmorphism Play Button from image_0.png */
+        .play-button-container {
+            position: relative;
+            z-index: 10;
+        }
+        .play-button {
+            display: inline-flex;
+            width: 120px;
+            height: 120px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, 0.2); /* Translucent white base from image_0.png */
+            border: 1px solid rgba(255, 255, 255, 0.3); /* Minimal border */
+            backdrop-filter: blur(10px); /* Frosty glass effect */
+            align-items: center;
+            justify-content: center;
+            transition: background 0.3s;
+        }
+        .play-button:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+        .play-triangle {
+            width: 0;
+            height: 0;
+            border-top: 20px solid transparent;
+            border-bottom: 20px solid transparent;
+            border-left: 35px solid rgba(255, 255, 255, 0.9); /* Opaque white play triangle from image_0.png */
+            margin-left: 10px; /* Offset triangle within glass */
+        }
+        .white-dot {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background-color: #FFFFFF; /* Minimal dot from image_0.png */
+            border-radius: 50%;
+            animation: fadeDot 4s infinite alternate;
+        }
+        .dot-1 {
+            top: 20%;
+            left: -10%;
+        }
+        .dot-2 {
+            bottom: -30%;
+            right: 10%;
+        }
+        @keyframes fadeDot {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+
     </style>
 </head>
 <body>
 
     <nav class="fixed w-full z-50 nav-blur px-6 py-4 flex justify-between items-center">
-        <div class="text-sm font-bold tracking-widest uppercase">Navi Wang</div>
-        <div class="hidden md:flex space-x-12 text-xs tracking-widest uppercase text-gray-400">
-            <a href="#work" class="hover:text-white transition-colors">Works / 作品</a>
-            <a href="#about" class="hover:text-white transition-colors">About / 关于</a>
-            <a href="#contact" class="hover:text-white transition-colors">Contact / 联系</a>
+        <div class="text-sm font-bold tracking-widest uppercase" style="color: #2D2D2D;">Navi Wang</div>
+        <div class="hidden md:flex space-x-12 text-xs tracking-widest uppercase" style="color: #6C757D;">
+            <a href="#work" class="hover-nav-item hover:text-[#2D2D2D] transition-colors">Works / 作品</a>
+            <a href="#about" class="hover-nav-item hover:text-[#2D2D2D] transition-colors">About / 关于</a>
+            <a href="#contact" class="hover-nav-item hover:text-[#2D2D2D] transition-colors">Contact / 联系</a>
         </div>
-        <div class="md:hidden text-xs">MENU</div>
+        <div class="md:hidden text-xs" style="color: #2D2D2D;">MENU</div>
     </nav>
 
     <section class="relative h-screen flex items-center justify-center overflow-hidden">
-        <div class="absolute inset-0 opacity-20">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-accent-blue rounded-full blur-[160px] animate-pulse"></div>
+        <div class="mood-blur-container">
+            <div class="mood-blur"></div>
         </div>
-        <div class="relative z-10 text-center space-y-4">
-            <p class="text-xs tracking-[0.3em] text-gray-400 animate__animated animate__fadeIn">HELLO I'M NAVI WANG</p>
-            <h1 class="text-5xl md:text-7xl font-light tracking-tighter animate__animated animate__fadeIn animate__delay-1s">王楠辉</h1>
-            <div class="pt-10 opacity-50 animate__animated animate__bounce animate__infinite animate__slower text-xs">SCROLL</div>
+
+        <div class="max-w-[1400px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 items-center gap-12 relative z-10">
+            
+            <div class="text-left space-y-4 reveal active">
+                <p class="text-base tracking-[0.3em] uppercase text-[#6C757D] animate__animated animate__fadeIn">HELLO I'M NAVI WANG</p>
+                <h1 class="text-6xl md:text-8xl font-black tracking-tighter animate__animated animate__fadeIn animate__delay-1s" style="color: #2D2D2D;">王楠辉</h1>
+                <p class="text-3xl font-light italic text-[#2D2D2D] animate__animated animate__fadeIn animate__delay-1s">Video Editor & Director</p>
+                
+                <div class="flex flex-wrap gap-4 pt-8 animate__animated animate__fadeIn animate__delay-2s">
+                    <span class="px-5 py-2.5 rounded-full border border-[#2D2D2D] text-xs font-bold text-[#2D2D2D] bg-[#FFFFFF] hover:bg-[#F2F2F2] transition">
+                        [VIDEO EDITOR]
+                    </span>
+                    <span class="px-5 py-2.5 rounded-full border border-[#2D2D2D] text-xs font-bold text-[#2D2D2D] bg-[#FFFFFF] hover:bg-[#F2F2F2] transition">
+                        [COLORIST]
+                    </span>
+                    <span class="px-5 py-2.5 rounded-full border border-[#2D2D2D] text-xs font-bold text-[#2D2D2D] bg-[#FFFFFF] hover:bg-[#F2F2F2] transition">
+                        [MOTION GRAPHICS]
+                    </span>
+                </div>
+            </div>
+
+            <div class="flex items-center justify-center md:justify-end animate__animated animate__fadeIn animate__delay-3s play-button-container">
+                <div class="play-button">
+                    <div class="play-triangle"></div>
+                </div>
+                <div class="white-dot dot-1"></div>
+                <div class="white-dot dot-2"></div>
+            </div>
+            
         </div>
     </section>
 
     <section id="work" class="max-w-[1400px] mx-auto px-6 py-32">
-        <div class="flex space-x-8 mb-16 text-xs tracking-widest uppercase text-gray-500 reveal">
-            <button class="text-white border-b border-white pb-1">All</button>
-            <button class="hover:text-white transition-all pb-1">Commercial</button>
-            <button class="hover:text-white transition-all pb-1">Documentary</button>
-            <button class="hover:text-white transition-all pb-1">AI Creative</button>
+        <div class="flex space-x-8 mb-16 text-xs tracking-widest uppercase reveal" style="color: #6C757D;">
+            <button class="text-[#2D2D2D] border-b border-[#2D2D2D] pb-1">All</button>
+            <button class="hover:text-[#2D2D2D] transition-all pb-1">Commercial</button>
+            <button class="hover:text-[#2D2D2D] transition-all pb-1">Documentary</button>
+            <button class="hover:text-[#2D2D2D] transition-all pb-1">AI Creative</button>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
             <div class="work-card group cursor-pointer reveal">
-                <div class="relative aspect-video overflow-hidden rounded-sm bg-zinc-900">
+                <div class="relative aspect-video overflow-hidden rounded-sm bg-[#F2F2F2]">
                     <img src="https://images.unsplash.com/photo-1492691523567-61723c275df4?auto=format&fit=crop&w=1200" alt="Title" class="w-full h-full object-cover opacity-80 group-hover:opacity-100">
-                    <div class="card-meta absolute inset-0 bg-black/40 flex flex-col justify-end p-8 opacity-0 transition-all duration-500 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0">
-                        <span class="text-xs text-blue-400 mb-2 uppercase tracking-widest">Commercial</span>
-                        <h3 class="text-2xl font-light italic">The Silent Night / 某品牌宣传片</h3>
-                        <p class="text-xs text-gray-300 mt-2">2026 / Editor & Colorist</p>
+                    <div class="card-meta absolute inset-0 flex flex-col justify-end p-8 opacity-0 transition-all duration-500 transform translate-y-4 group-hover:opacity-100 group-hover:translate-y-0">
+                        <span class="text-xs text-white mb-2 uppercase tracking-widest">Commercial</span>
+                        <h3 class="text-2xl font-light italic text-white">The Silent Night / 某品牌宣传片</h3>
+                        <p class="text-xs text-gray-100 mt-2">2026 / Editor & Colorist</p>
                     </div>
                 </div>
             </div>
             </div>
     </section>
 
-    <section id="about" class="bg-zinc-950 py-32">
+    <section id="about" class="bg-[#F2F2F2] py-32">
         <div class="max-w-4xl mx-auto px-6 grid md:grid-cols-2 gap-20 items-center">
             <div class="reveal">
-                <h2 class="text-3xl font-light mb-8 italic">剪辑是关于节奏的呼吸。</h2>
-                <p class="text-gray-400 leading-relaxed font-light">
-                    我是王楠辉，拥有4年视频创作剪辑经验。我倾向于在克制的叙事中寻找爆发力，
+                <h2 class="text-3xl font-light mb-8 italic" style="color: #2D2D2D;">剪辑是关于节奏的呼吸。</h2>
+                <p class="text-lg leading-relaxed font-light" style="color: #6C757D;">
+                    我是王楠辉，拥有4年高端视觉创作经验。我倾向于在克制的叙事中寻找爆发力，
                     通过精准的剪辑点建立情感链接。擅长宣传片、纪录片及 AI 视觉生成。
                 </p>
             </div>
-            <div class="space-y-6 text-xs tracking-[0.2em] uppercase text-gray-500 reveal">
+            <div class="space-y-6 text-xs tracking-[0.2em] uppercase reveal" style="color: #6C757D;">
                 <div>
-                    <p class="text-white mb-2">Skills</p>
+                    <p class="mb-2" style="color: #2D2D2D;">Skills</p>
                     <p>Premiere / DaVinci Resolve / After Effects / Midjourney / Sora</p>
                 </div>
                 <div>
-                    <p class="text-white mb-2">Awards</p>
+                    <p class="mb-2" style="color: #2D2D2D;">Awards</p>
                     <p>Short Film Festival 2025 - Best Editing</p>
                 </div>
             </div>
@@ -91,19 +241,19 @@
     </section>
 
     <footer id="contact" class="py-32 px-6 text-center reveal">
-        <h2 class="text-xs tracking-[0.5em] text-gray-500 uppercase mb-8">Start a Conversation</h2>
-        <a href="mailto:navi@example.com" class="text-3xl md:text-5xl font-extralight hover:accent-blue transition-colors duration-300 underline underline-offset-8 decoration-[0.5px]">hello@navi.design</a>
+        <h2 class="text-xs tracking-[0.5em] uppercase mb-8" style="color: #6C757D;">Start a Conversation</h2>
+        <a href="mailto:navi@example.com" class="text-3xl md:text-5xl font-extralight hover:text-accent-blue transition-colors duration-300 underline underline-offset-8 decoration-[0.5px]">hello@navi.design</a>
         
         <div class="flex justify-center space-x-12 mt-20 text-xs tracking-widest text-gray-600">
-            <a href="#" class="hover:text-white">WECHAT</a>
-            <a href="#" class="hover:text-white">INSTAGRAM</a>
-            <a href="#" class="hover:text-white">VIMEO</a>
+            <a href="#" class="hover:text-[#2D2D2D] transition-colors">WECHAT</a>
+            <a href="#" class="hover:text-[#2D2D2D] transition-colors">INSTAGRAM</a>
+            <a href="#" class="hover:text-[#2D2D2D] transition-colors">VIMEO</a>
         </div>
-        <p class="mt-20 text-[10px] text-zinc-800 uppercase tracking-widest">© 2026 Navi Wang. All Rights Reserved.</p>
+        <p class="mt-20 text-[10px] uppercase tracking-widest" style="color: #6C757D;">© 2026 Navi Wang. All Rights Reserved.</p>
     </footer>
 
     <script>
-        // 简单的滚动显现脚本 (Intersection Observer)
+        // Simple Scroll-Reveal Script using Intersection Observer
         const observerOptions = { threshold: 0.1 };
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
