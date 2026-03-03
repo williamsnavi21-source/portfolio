@@ -3,47 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navi Wang | 视觉创作作品集</title>
+    <title>Navi Wang | film</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <style>
-        body {
-            background-color: #FFFFFF;
-            color: #2D2D2D;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            overflow-x: hidden;
-        }
-
+        body { background-color: #FFFFFF; color: #2D2D2D; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; overflow-x: hidden; }
         ::-webkit-scrollbar { display: none; }
-
-        /* --- 核心：液态流体背景 --- */
-        .fluid-bg-container {
-            position: fixed;
-            inset: 0;
-            overflow: hidden;
-            opacity: 0.35;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        .blob {
-            position: absolute;
-            background: linear-gradient(135deg, #3D99F2 0%, #75B4FB 100%);
-            filter: blur(80px);
-            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-            animation: fluidMorph 20s infinite alternate ease-in-out;
-        }
-
+        
+        /* --- 核心：有机液态流体背景 --- */
+        .fluid-bg-container { position: fixed; inset: 0; overflow: hidden; opacity: 0.35; pointer-events: none; z-index: 0; }
+        .blob { position: absolute; background: linear-gradient(135deg, #3D99F2 0%, #75B4FB 100%); filter: blur(80px); border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; animation: fluidMorph 20s infinite alternate ease-in-out; }
         @keyframes fluidMorph {
             0% { transform: translate(-10%, 10%) rotate(0deg) scale(1); border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
             50% { transform: translate(40vw, 30vh) rotate(90deg) scale(1.4); border-radius: 30% 60% 70% 30% / 50% 60% 30% 60%; opacity: 0.6; }
             100% { transform: translate(110vw, -10%) rotate(180deg) scale(1.1); border-radius: 40% 60% 50% 50% / 40% 40% 60% 60%; }
         }
-
         .blob-2 { width: 900px; height: 900px; left: -10%; top: 20%; background: linear-gradient(135deg, #3D99F2 0%, #A5D1FF 100%); animation-duration: 28s; animation-delay: -5s; opacity: 0.3; }
         .blob-1 { width: 700px; height: 700px; left: -20%; top: -10%; animation-duration: 22s; }
-
-        /* --- UI 细节 --- */
+        
+        /* --- UI 细节与黄金分割排版 --- */
         .nav-blur { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); border-bottom: 0.5px solid rgba(0, 0, 0, 0.05); }
         .hero-content { padding-left: 12%; }
         .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
@@ -55,9 +33,20 @@
         .filter-btn.active::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 100%; height: 2px; background: #2D2D2D; }
         .work-card { transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1); }
         .work-card.hidden-item { opacity: 0; transform: scale(0.9) translateY(30px); pointer-events: none; position: absolute; }
+        
+        /* --- 磁性流体光标 --- */
+        @media (pointer: fine) {
+            body, a, button, .cursor-pointer, .work-card, input, textarea { cursor: none; }
+        }
+        #cursor-dot { position: fixed; top: 0; left: 0; width: 6px; height: 6px; background-color: #3D99F2; border-radius: 50%; pointer-events: none; z-index: 10000; transform: translate(-50%, -50%); transition: opacity 0.3s; }
+        #cursor-ring { position: fixed; top: 0; left: 0; width: 40px; height: 40px; border: 1px solid rgba(61, 153, 242, 0.6); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s; }
+        #cursor-ring.cursor-hover { width: 80px; height: 80px; background-color: rgba(61, 153, 242, 0.15); border-color: transparent; backdrop-filter: blur(2px); }
     </style>
 </head>
 <body>
+
+    <div id="cursor-dot" class="hidden md:block"></div>
+    <div id="cursor-ring" class="hidden md:block"></div>
 
     <nav class="fixed w-full z-50 nav-blur px-8 py-5 flex justify-between items-center">
         <div class="text-sm font-bold tracking-[0.2em] uppercase text-[#2D2D2D]">Navi Wang</div>
@@ -123,38 +112,209 @@
         <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-24 md:px-[5%]">
             
             <div class="work-card reveal" data-category="promo">
-                <div class="relative overflow-hidden bg-gray-50 rounded-sm shadow-sm">
-                    <div style="padding:56.25% 0 0 0;position:relative;">
-                        <iframe src="https://player.vimeo.com/video/1169577531?title=0&amp;byline=0&amp;portrait=0&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479" frameborder="0" allow="autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share" referrerpolicy="strict-origin-when-cross-origin" style="position:absolute;top:0;left:0;width:100%;height:100%;" title="“榕树下”--劳模工匠讲堂系列第一课 v24没配音结尾_batch"></iframe>
+                <a href="https://bcnyfjri5wca.feishu.cn/docx/KfntdGXQoo7QyDxD63xcP8HmnOg#share-DhBUdgdazoxxIMxwAYScdCJHndc" target="_blank" class="block group relative aspect-[16/9] overflow-hidden bg-gray-50 rounded-sm cursor-pointer shadow-sm">
+                    <img src="img/cover-1.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=1200'">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-16 h-16 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center group-hover:bg-white/90 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                            <svg class="w-6 h-6 text-white group-hover:text-[#2D2D2D] ml-1 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
                     </div>
-                    </div>
-                
+                </a>
                 <div class="mt-8">
                     <h3 class="text-xl font-medium italic tracking-tight text-[#2D2D2D]">“榕树下”--劳模工匠讲堂</h3>
-                    <p class="text-[10px] text-gray-400 uppercase tracking-[0.2em] mt-3">服务单位：福州国网 / 宣传片</p>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-[0.2em] mt-3">福州国网 / 宣传片</p>
                 </div>
             </div>
 
+            <div class="work-card reveal" data-category="promo">
+                <a href="【飞书链接】" target="_blank" class="block group relative aspect-[16/9] overflow-hidden bg-gray-50 rounded-sm cursor-pointer shadow-sm">
+                    <img src="img/promo-2.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1600132806370-bf17e65e942f?auto=format&fit=crop&w=1200'">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-16 h-16 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center group-hover:bg-white/90 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                            <svg class="w-6 h-6 text-white group-hover:text-[#2D2D2D] ml-1 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </a>
+                <div class="mt-8">
+                    <h3 class="text-xl font-medium italic tracking-tight text-[#2D2D2D]">【宣传片项目名称2】</h3>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-[0.2em] mt-3">【客户名称】 / 宣传片</p>
+                </div>
             </div>
+
+            <div class="work-card reveal" data-category="promo">
+                <a href="【飞书链接】" target="_blank" class="block group relative aspect-[16/9] overflow-hidden bg-gray-50 rounded-sm cursor-pointer shadow-sm">
+                    <img src="img/promo-3.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1579403124614-197f69d8187b?auto=format&fit=crop&w=1200'">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-16 h-16 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center group-hover:bg-white/90 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                            <svg class="w-6 h-6 text-white group-hover:text-[#2D2D2D] ml-1 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </a>
+                <div class="mt-8">
+                    <h3 class="text-xl font-medium italic tracking-tight text-[#2D2D2D]">【宣传片项目名称3】</h3>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-[0.2em] mt-3">【客户名称】 / 宣传片</p>
+                </div>
+            </div>
+
+            <div class="work-card reveal" data-category="doc">
+                <a href="【飞书链接】" target="_blank" class="block group relative aspect-[16/9] overflow-hidden bg-gray-50 rounded-sm cursor-pointer shadow-sm">
+                    <img src="img/doc-1.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1485846234645-a62644f84728?auto=format&fit=crop&w=1200'">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-16 h-16 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center group-hover:bg-white/90 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                            <svg class="w-6 h-6 text-white group-hover:text-[#2D2D2D] ml-1 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </a>
+                <div class="mt-8">
+                    <h3 class="text-xl font-medium italic tracking-tight text-[#2D2D2D]">【纪录片项目名称1】</h3>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-[0.2em] mt-3">【客户名称】 / 纪录片</p>
+                </div>
+            </div>
+
+            <div class="work-card reveal" data-category="doc">
+                <a href="【飞书链接】" target="_blank" class="block group relative aspect-[16/9] overflow-hidden bg-gray-50 rounded-sm cursor-pointer shadow-sm">
+                    <img src="img/doc-2.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1551632811-561732d1e306?auto=format&fit=crop&w=1200'">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-16 h-16 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center group-hover:bg-white/90 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                            <svg class="w-6 h-6 text-white group-hover:text-[#2D2D2D] ml-1 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </a>
+                <div class="mt-8">
+                    <h3 class="text-xl font-medium italic tracking-tight text-[#2D2D2D]">【纪录片项目名称2】</h3>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-[0.2em] mt-3">【客户名称】 / 纪录片</p>
+                </div>
+            </div>
+
+            <div class="work-card reveal" data-category="doc">
+                <a href="【飞书链接】" target="_blank" class="block group relative aspect-[16/9] overflow-hidden bg-gray-50 rounded-sm cursor-pointer shadow-sm">
+                    <img src="img/doc-3.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1520697830682-898f1e5431cd?auto=format&fit=crop&w=1200'">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-16 h-16 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center group-hover:bg-white/90 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                            <svg class="w-6 h-6 text-white group-hover:text-[#2D2D2D] ml-1 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </a>
+                <div class="mt-8">
+                    <h3 class="text-xl font-medium italic tracking-tight text-[#2D2D2D]">【纪录片项目名称3】</h3>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-[0.2em] mt-3">【客户名称】 / 纪录片</p>
+                </div>
+            </div>
+
+            <div class="work-card reveal" data-category="film">
+                <a href="【飞书链接】" target="_blank" class="block group relative aspect-[16/9] overflow-hidden bg-gray-50 rounded-sm cursor-pointer shadow-sm">
+                    <img src="img/film-1.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1492691523567-61723c275df4?auto=format&fit=crop&w=1200'">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-16 h-16 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center group-hover:bg-white/90 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                            <svg class="w-6 h-6 text-white group-hover:text-[#2D2D2D] ml-1 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </a>
+                <div class="mt-8">
+                    <h3 class="text-xl font-medium italic tracking-tight text-[#2D2D2D]">【微电影项目名称1】</h3>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-[0.2em] mt-3">【年份/角色】 / 微电影</p>
+                </div>
+            </div>
+
+            <div class="work-card reveal" data-category="film">
+                <a href="【飞书链接】" target="_blank" class="block group relative aspect-[16/9] overflow-hidden bg-gray-50 rounded-sm cursor-pointer shadow-sm">
+                    <img src="img/film-2.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=1200'">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-16 h-16 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center group-hover:bg-white/90 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                            <svg class="w-6 h-6 text-white group-hover:text-[#2D2D2D] ml-1 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </a>
+                <div class="mt-8">
+                    <h3 class="text-xl font-medium italic tracking-tight text-[#2D2D2D]">【微电影项目名称2】</h3>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-[0.2em] mt-3">【年份/角色】 / 微电影</p>
+                </div>
+            </div>
+
+            <div class="work-card reveal" data-category="film">
+                <a href="【飞书链接】" target="_blank" class="block group relative aspect-[16/9] overflow-hidden bg-gray-50 rounded-sm cursor-pointer shadow-sm">
+                    <img src="img/film-3.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?auto=format&fit=crop&w=1200'">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-16 h-16 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center group-hover:bg-white/90 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                            <svg class="w-6 h-6 text-white group-hover:text-[#2D2D2D] ml-1 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </a>
+                <div class="mt-8">
+                    <h3 class="text-xl font-medium italic tracking-tight text-[#2D2D2D]">【微电影项目名称3】</h3>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-[0.2em] mt-3">【年份/角色】 / 微电影</p>
+                </div>
+            </div>
+
+            <div class="work-card reveal" data-category="aigc">
+                <a href="【飞书链接】" target="_blank" class="block group relative aspect-[16/9] overflow-hidden bg-gray-50 rounded-sm cursor-pointer shadow-sm">
+                    <img src="img/aigc-1.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=1200'">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-16 h-16 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center group-hover:bg-white/90 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                            <svg class="w-6 h-6 text-white group-hover:text-[#2D2D2D] ml-1 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </a>
+                <div class="mt-8">
+                    <h3 class="text-xl font-medium italic tracking-tight text-[#2D2D2D]">【AIGC项目名称1】</h3>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-[0.2em] mt-3">AI 视觉生成 / 2026</p>
+                </div>
+            </div>
+
+            <div class="work-card reveal" data-category="aigc">
+                <a href="【飞书链接】" target="_blank" class="block group relative aspect-[16/9] overflow-hidden bg-gray-50 rounded-sm cursor-pointer shadow-sm">
+                    <img src="img/aigc-2.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200'">
+                    <div class="absolute inset-0 bg-black/20 group-hover:bg-black/40 transition-colors duration-500"></div>
+                    <div class="absolute inset-0 flex items-center justify-center">
+                        <div class="w-16 h-16 rounded-full bg-white/30 backdrop-blur-md flex items-center justify-center group-hover:bg-white/90 group-hover:scale-110 transition-all duration-300 shadow-lg">
+                            <svg class="w-6 h-6 text-white group-hover:text-[#2D2D2D] ml-1 transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                        </div>
+                    </div>
+                </a>
+                <div class="mt-8">
+                    <h3 class="text-xl font-medium italic tracking-tight text-[#2D2D2D]">【AIGC项目名称2】</h3>
+                    <p class="text-[10px] text-gray-400 uppercase tracking-[0.2em] mt-3">AI 视觉生成 / 2026</p>
+                </div>
+            </div>
+
+        </div>
     </section>
 
     <footer id="contact" class="py-32 px-8 border-t border-gray-100 bg-white relative z-10">
         <div class="max-w-[1400px] mx-auto hero-content grid md:grid-cols-2 gap-20 items-start">
-            
-            <div class="reveal">
+            <div class="reveal w-full">
                 <p class="text-[10px] tracking-[0.5em] uppercase text-gray-400 mb-10">Start a Project</p>
-                <a href="mailto:973132021@qq.com" class="block text-3xl md:text-5xl font-extralight hover:text-[#3D99F2] transition-colors duration-500 mb-12 text-[#2D2D2D]">
-                    973132021@qq.com
-                </a>
-                
-                <div class="space-y-6 text-sm font-light text-gray-500">
-                    <div class="flex items-center space-x-4">
-                        <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                        <span class="tracking-widest">17689979921</span>
+                <div class="flex flex-col space-y-8 w-full md:pr-10">
+                    <div class="flex items-center justify-between border-b border-gray-100 pb-4 group cursor-pointer" onclick="window.location.href='mailto:973132021@qq.com'">
+                        <div class="flex items-center space-x-4">
+                            <svg class="w-5 h-5 text-gray-400 group-hover:text-[#3D99F2] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            <span class="text-[10px] text-gray-400 uppercase tracking-[0.2em]">Email</span>
+                        </div>
+                        <span class="text-lg md:text-xl font-light text-[#2D2D2D] group-hover:text-[#3D99F2] transition-colors">973132021@qq.com</span>
                     </div>
-                    <div class="flex items-center space-x-4">
-                        <svg class="w-5 h-5 text-gray-400" fill="currentColor" viewBox="0 0 24 24"><path d="M8.5,13.5A1.5,1.5,0,1,1,7,12,1.5,1.5,0,0,1,8.5,13.5Zm7,0A1.5,1.5,0,1,1,14,12,1.5,1.5,0,0,1,15.5,13.5Zm1.78-7.85c-.21,0-.41,0-.63.05a8,8,0,0,0-15,3.48c0,4.24,3.77,7.74,8.55,7.74a10.61,10.61,0,0,0,2.69-.37l2.58,1.38-.72-2.31c2.1-1.35,3.5-3.6,3.5-6.19C18.23,6.86,14.73,5.65,17.28,5.65ZM23.33,14.61c0-3-2.61-5.38-5.88-5.38a6.37,6.37,0,0,0-1.87.27c.1.37.15.74.15,1.13,0,3.74-3.56,6.78-8,6.78-.34,0-.68-.05-1-.1A5.44,5.44,0,0,0,11.57,20.5a7.37,7.37,0,0,0,1.88.24c3.34,0,6.13-1.89,6.13-4.27s-1.07-3.92-2.43-5.07l.52,1.75-1.93-1Z"></path></svg>
-                        <span class="tracking-widest">17689979921</span>
+                    <div class="flex items-center justify-between border-b border-gray-100 pb-4 group cursor-pointer" onclick="window.location.href='tel:17689979921'">
+                        <div class="flex items-center space-x-4">
+                            <svg class="w-5 h-5 text-gray-400 group-hover:text-[#3D99F2] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            <span class="text-[10px] text-gray-400 uppercase tracking-[0.2em]">Phone</span>
+                        </div>
+                        <span class="text-lg md:text-xl font-light text-[#2D2D2D] group-hover:text-[#3D99F2] transition-colors">17689979921</span>
+                    </div>
+                    <div class="flex items-center justify-between border-b border-gray-100 pb-4 group">
+                        <div class="flex items-center space-x-4">
+                            <svg class="w-5 h-5 text-gray-400 group-hover:text-[#3D99F2] transition-colors" fill="currentColor" viewBox="0 0 24 24"><path d="M8.5,13.5A1.5,1.5,0,1,1,7,12,1.5,1.5,0,0,1,8.5,13.5Zm7,0A1.5,1.5,0,1,1,14,12,1.5,1.5,0,0,1,15.5,13.5Zm1.78-7.85c-.21,0-.41,0-.63.05a8,8,0,0,0-15,3.48c0,4.24,3.77,7.74,8.55,7.74a10.61,10.61,0,0,0,2.69-.37l2.58,1.38-.72-2.31c2.1-1.35,3.5-3.6,3.5-6.19C18.23,6.86,14.73,5.65,17.28,5.65ZM23.33,14.61c0-3-2.61-5.38-5.88-5.38a6.37,6.37,0,0,0-1.87.27c.1.37.15.74.15,1.13,0,3.74-3.56,6.78-8,6.78-.34,0-.68-.05-1-.1A5.44,5.44,0,0,0,11.57,20.5a7.37,7.37,0,0,0,1.88.24c3.34,0,6.13-1.89,6.13-4.27s-1.07-3.92-2.43-5.07l.52,1.75-1.93-1Z"></path></svg>
+                            <span class="text-[10px] text-gray-400 uppercase tracking-[0.2em]">Wechat</span>
+                        </div>
+                        <span class="text-lg md:text-xl font-light text-[#2D2D2D] select-all cursor-pointer group-hover:text-[#3D99F2] transition-colors">17689979921</span>
                     </div>
                 </div>
             </div>
@@ -189,10 +349,30 @@
         </div>
     </footer>
 
-    <script src="https://player.vimeo.com/api/player.js"></script>
-    
     <script>
-        // 筛选逻辑
+        // 1. 磁性游标逻辑
+        const cursorDot = document.getElementById('cursor-dot');
+        const cursorRing = document.getElementById('cursor-ring');
+        let mouseX = -100, mouseY = -100, ringX = -100, ringY = -100;
+
+        document.addEventListener('mousemove', (e) => {
+            mouseX = e.clientX; mouseY = e.clientY;
+            cursorDot.style.left = mouseX + 'px'; cursorDot.style.top = mouseY + 'px';
+        });
+
+        function animateCursor() {
+            ringX += (mouseX - ringX) * 0.15; ringY += (mouseY - ringY) * 0.15;
+            cursorRing.style.left = ringX + 'px'; cursorRing.style.top = ringY + 'px';
+            requestAnimationFrame(animateCursor);
+        }
+        animateCursor();
+
+        document.querySelectorAll('a, button, input, textarea, .filter-btn').forEach(el => {
+            el.addEventListener('mouseenter', () => { cursorRing.classList.add('cursor-hover'); cursorDot.style.opacity = '0'; });
+            el.addEventListener('mouseleave', () => { cursorRing.classList.remove('cursor-hover'); cursorDot.style.opacity = '1'; });
+        });
+
+        // 2. 分类筛选逻辑
         const filterButtons = document.querySelectorAll('.filter-btn');
         const projectCards = document.querySelectorAll('.work-card');
 
@@ -214,19 +394,15 @@
             });
         });
 
-        // 滚动显示脚本
+        // 3. 滚动显现逻辑
         const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) entry.target.classList.add('active');
-            });
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
-
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
         
-        // 阻止表单默认提交
+        // 4. 阻止表单跳转
         document.querySelector('form').addEventListener('submit', function(e) {
-            e.preventDefault();
-            alert('此表单当前仅做视觉展示。如需联系，请直接添加微信或发送邮件！');
+            e.preventDefault(); alert('此表单当前仅做视觉展示。如需联系，请直接添加微信或发送邮件！');
         });
     </script>
 </body>
