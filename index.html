@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Navi Wang | film</title>
+    <title>Navi Wang | 视觉创作作品集</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -12,20 +12,14 @@
         body { background-color: #FFFFFF; color: #2D2D2D; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; overflow-x: hidden; }
         ::-webkit-scrollbar { display: none; }
         
-        /* --- 核心：WebGL 3D 画布容器 --- */
+        /* --- 极简 WebGL 画布 --- */
         #webgl-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100vw;
-            height: 100vh;
-            z-index: 0;
-            pointer-events: none; /* 确保不阻挡鼠标点击网页内容 */
-            opacity: 0.85; /* 轻微透明度，保证前方文字可读性 */
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: 0; pointer-events: none; opacity: 1; 
         }
         
-        /* --- UI 细节与黄金分割排版 --- */
-        .nav-blur { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(20px); border-bottom: 0.5px solid rgba(0, 0, 0, 0.05); }
+        /* --- UI 细节 --- */
+        .nav-blur { background: rgba(255, 255, 255, 0.6); backdrop-filter: blur(20px); border-bottom: 0.5px solid rgba(0, 0, 0, 0.05); }
         .hero-content { padding-left: 12%; }
         .reveal { opacity: 0; transform: translateY(30px); transition: all 1s cubic-bezier(0.16, 1, 0.3, 1); }
         .reveal.active { opacity: 1; transform: translateY(0); }
@@ -47,7 +41,6 @@
 <body>
 
     <canvas id="webgl-canvas"></canvas>
-
     <div id="cursor-dot" class="hidden md:block"></div>
     <div id="cursor-ring" class="hidden md:block"></div>
 
@@ -66,7 +59,7 @@
             <div class="reveal active space-y-4">
                 <p class="text-xs md:text-sm tracking-[0.6em] uppercase text-gray-500 mb-6 animate__animated animate__fadeIn">HELLO I'M NAVI WANG</p>
                 <h1 class="text-7xl md:text-9xl font-black tracking-tighter text-[#2D2D2D] leading-[0.95] mb-2">王楠辉</h1>
-                <p class="text-2xl md:text-4xl font-extralight italic text-gray-600 pb-10">Video Editor</p>
+                <p class="text-2xl md:text-4xl font-extralight italic text-gray-500 pb-10">Video Editor</p>
                 <div class="flex flex-wrap gap-4 pt-4 animate__animated animate__fadeIn animate__delay-1s">
                     <div class="tag-pill px-6 py-2.5 rounded-full text-[10px] font-bold tracking-[0.15em] text-[#2D2D2D]">[ VIDEO EDITOR ]</div>
                     <div class="tag-pill px-6 py-2.5 rounded-full text-[10px] font-bold tracking-[0.15em] text-[#2D2D2D]">[ COLORIST ]</div>
@@ -76,14 +69,14 @@
         </div>
     </section>
 
-    <section id="about" class="relative min-h-screen flex items-center bg-[#FAFAFA]/40 py-20 backdrop-blur-sm">
+    <section id="about" class="relative min-h-screen flex items-center bg-[#FAFAFA]/40 py-20 backdrop-blur-sm z-10">
         <div class="max-w-[1400px] mx-auto px-8 hero-content w-full grid md:grid-cols-12 gap-12">
             <div class="md:col-span-4 reveal">
                 <h2 class="text-xs tracking-[0.5em] uppercase text-gray-500 mb-10">About / 关于</h2>
                 <p class="text-4xl md:text-5xl font-light italic leading-tight text-[#2D2D2D]">每一帧<br>都是对节奏的<br>精准把控</p>
             </div>
             <div class="md:col-span-7 md:col-start-6 reveal">
-                <div class="text-gray-700 text-base md:text-lg font-light space-y-8 leading-relaxed">
+                <div class="text-gray-600 text-base md:text-lg font-light space-y-8 leading-relaxed">
                     <p>已有四年视频剪辑经验，擅长制作宣传片、纪录片及政府汇报片等多类型作品。我深谙后期制作流程，能够精准把控影片节奏、画面选择与音效处理，确保作品高质量、准时交付。</p>
                     <p>注重团队与客户的沟通协作，情绪稳定，这让我在高压环境下依然能保持高效产出。喜欢在工作中不断尝试新技术与手法，让每一部作品更生动有力，赋予影像独特的生命力。</p>
                     <div class="grid grid-cols-2 gap-10 pt-12 text-[11px] tracking-widest uppercase font-bold text-[#2D2D2D]">
@@ -108,7 +101,6 @@
         </div>
 
         <div id="projects-grid" class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-24 md:px-[5%]">
-            
             <div class="work-card reveal" data-category="promo">
                 <a href="https://bcnyfjri5wca.feishu.cn/docx/KfntdGXQoo7QyDxD63xcP8HmnOg#share-DhBUdgdazoxxIMxwAYScdCJHndc" target="_blank" class="block group relative aspect-[16/9] overflow-hidden bg-gray-50 rounded-sm cursor-pointer shadow-sm">
                     <img src="img/cover-1.jpg" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105" onerror="this.src='https://images.unsplash.com/photo-1536240478700-b869070f9279?auto=format&fit=crop&w=1200'">
@@ -127,32 +119,38 @@
             </div>
     </section>
 
-    <footer id="contact" class="py-32 px-8 border-t border-gray-200 bg-white/80 backdrop-blur-lg relative z-10">
+    <footer id="contact" class="py-32 px-8 border-t border-gray-100 bg-white/90 backdrop-blur-lg relative z-10">
         <div class="max-w-[1400px] mx-auto hero-content grid md:grid-cols-2 gap-20 items-start">
             <div class="reveal w-full">
                 <p class="text-[10px] tracking-[0.5em] uppercase text-gray-400 mb-10">Start a Project</p>
                 <div class="flex flex-col space-y-8 w-full md:pr-10">
-                    <div class="flex items-center justify-between border-b border-gray-200 pb-4 group cursor-pointer" onclick="window.location.href='mailto:973132021@qq.com'">
+                    <div class="flex items-center justify-between border-b border-gray-100 pb-4 group cursor-pointer" onclick="window.location.href='mailto:973132021@qq.com'">
                         <div class="flex items-center space-x-4">
                             <svg class="w-5 h-5 text-gray-400 group-hover:text-[#3D99F2] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                             <span class="text-[10px] text-gray-400 uppercase tracking-[0.2em]">Email</span>
                         </div>
                         <span class="text-lg md:text-xl font-light text-[#2D2D2D] group-hover:text-[#3D99F2] transition-colors">973132021@qq.com</span>
                     </div>
+                    <div class="flex items-center justify-between border-b border-gray-100 pb-4 group cursor-pointer" onclick="window.location.href='tel:17689979921'">
+                        <div class="flex items-center space-x-4">
+                            <svg class="w-5 h-5 text-gray-400 group-hover:text-[#3D99F2] transition-colors" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+                            <span class="text-[10px] text-gray-400 uppercase tracking-[0.2em]">Phone</span>
+                        </div>
+                        <span class="text-lg md:text-xl font-light text-[#2D2D2D] group-hover:text-[#3D99F2] transition-colors">17689979921</span>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="max-w-[1400px] mx-auto hero-content mt-32 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center text-[10px] tracking-[0.2em] uppercase text-gray-400 border-t border-gray-200">
+        <div class="max-w-[1400px] mx-auto hero-content mt-32 pt-8 flex flex-col md:flex-row justify-between items-start md:items-center text-[10px] tracking-[0.2em] uppercase text-gray-400 border-t border-gray-100">
             <p>© 2026 Navi Wang. All Rights Reserved.</p>
         </div>
     </footer>
 
     <script>
-        // 1. 磁性游标逻辑
         const cursorDot = document.getElementById('cursor-dot');
         const cursorRing = document.getElementById('cursor-ring');
         let mouseX = -100, mouseY = -100, ringX = -100, ringY = -100;
-        let normMouseX = 0.5, normMouseY = 0.5; // 为 3D 着色器准备的标准化鼠标坐标
+        let normMouseX = 0.5, normMouseY = 0.5; 
 
         document.addEventListener('mousemove', (e) => {
             mouseX = e.clientX; mouseY = e.clientY;
@@ -173,34 +171,46 @@
             el.addEventListener('mouseleave', () => { cursorRing.classList.remove('cursor-hover'); cursorDot.style.opacity = '1'; });
         });
 
-        // 2. 滚动与筛选逻辑
+        const filterButtons = document.querySelectorAll('.filter-btn');
+        const projectCards = document.querySelectorAll('.work-card');
+        filterButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                filterButtons.forEach(btn => btn.classList.remove('active'));
+                button.classList.add('active');
+                const filterValue = button.getAttribute('data-filter');
+                projectCards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    if (filterValue === 'all' || filterValue === cardCategory) {
+                        card.style.display = 'block'; setTimeout(() => card.classList.remove('hidden-item'), 10);
+                    } else {
+                        card.classList.add('hidden-item'); setTimeout(() => { if(card.classList.contains('hidden-item')) card.style.display = 'none'; }, 600);
+                    }
+                });
+            });
+        });
+
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
         }, { threshold: 0.1 });
         document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-        // ==================== 3. Three.js + GLSL 核心特效 ====================
+        // ==================== 极简流体 Shader (白与浅蓝) ====================
         const canvas = document.querySelector('#webgl-canvas');
         const renderer = new THREE.WebGLRenderer({ canvas, alpha: true, antialias: true });
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
         const scene = new THREE.Scene();
-        // 设置摄像机视角，稍微微距感
         const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
         camera.position.set(0, 0, 4.5);
+        const geometry = new THREE.PlaneGeometry(16, 10, 128, 128); // 优化了网格数量，提升性能
 
-        // 创建高密度的网格平面，允许 GPU 进行复杂的顶点形变
-        const geometry = new THREE.PlaneGeometry(16, 10, 256, 256);
-
-        // --- 顶点着色器 (Vertex Shader) : 控制 3D 起伏与鼠标吸引扰动 ---
         const vertexShader = `
             uniform float uTime;
             uniform vec2 uMouse;
             varying vec2 vUv;
             varying float vElevation;
 
-            // 经典 2D 噪声函数算法
             vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
             vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
             vec3 permute(vec3 x) { return mod289(((x*34.0)+1.0)*x); }
@@ -209,14 +219,11 @@
                 vec2 i  = floor(v + dot(v, C.yy) );
                 vec2 x0 = v -   i + dot(i, C.xx);
                 vec2 i1; i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
-                vec4 x12 = x0.xyxy + C.xxzz;
-                x12.xy -= i1;
-                i = mod289(i);
+                vec4 x12 = x0.xyxy + C.xxzz; x12.xy -= i1; i = mod289(i);
                 vec3 p = permute( permute( i.y + vec3(0.0, i1.y, 1.0 )) + i.x + vec3(0.0, i1.x, 1.0 ));
                 vec3 m = max(0.5 - vec3(dot(x0,x0), dot(x12.xy,x12.xy), dot(x12.zw,x12.zw)), 0.0);
                 m = m*m ; m = m*m ;
-                vec3 x = 2.0 * fract(p * C.www) - 1.0;
-                vec3 h = abs(x) - 0.5;
+                vec3 x = 2.0 * fract(p * C.www) - 1.0; vec3 h = abs(x) - 0.5;
                 vec3 ox = floor(x + 0.5); vec3 a0 = x - ox;
                 m *= 1.79284291400159 - 0.85373472095314 * ( a0*a0 + h*h );
                 vec3 g; g.x  = a0.x  * x0.x  + h.x  * x0.y; g.yz = a0.yz * x12.xz + h.yz * x12.yw;
@@ -227,91 +234,69 @@
                 vUv = uv;
                 vec3 pos = position;
 
-                // 1. 生成全局平滑起伏波浪
-                float noiseFreq = 0.5;
-                float noiseAmp = 0.8;
-                vec2 noisePos = vec2(pos.x * noiseFreq + uTime * 0.1, pos.y * noiseFreq + uTime * 0.15);
+                // 减弱了起伏的高度，使其更加平缓温柔
+                float noiseFreq = 0.4;
+                float noiseAmp = 0.5; 
+                vec2 noisePos = vec2(pos.x * noiseFreq + uTime * 0.05, pos.y * noiseFreq + uTime * 0.08);
                 float elevation = snoise(noisePos) * noiseAmp;
 
-                // 2. 鼠标磁性扰动逻辑：计算顶点到鼠标的距离
+                // 鼠标磁性扰动
                 vec2 mouseWorld = vec2((uMouse.x - 0.5) * 16.0, -(uMouse.y - 0.5) * 10.0);
                 float dist = distance(pos.xy, mouseWorld);
                 
-                // 距离越近（越平滑），扰动突起越强
-                float mouseEffect = smoothstep(3.0, 0.0, dist) * 1.5;
-                
-                // 结合时间产生动态的呼吸隆起
-                mouseEffect *= sin(dist * 5.0 - uTime * 3.0) * 0.5 + 0.5;
+                // 更柔和的鼠标反馈
+                float mouseEffect = smoothstep(4.0, 0.0, dist) * 0.8;
+                mouseEffect *= sin(dist * 3.0 - uTime * 2.0) * 0.5 + 0.5;
 
                 pos.z += elevation + mouseEffect;
-                vElevation = pos.z; // 将高度传给片元着色器上色
+                vElevation = pos.z; 
 
                 gl_Position = projectionMatrix * modelViewMatrix * vec4(pos, 1.0);
             }
         `;
 
-        // --- 片元着色器 (Fragment Shader) : 控制条纹色彩 ---
         const fragmentShader = `
             uniform float uTime;
             varying vec2 vUv;
             varying float vElevation;
 
             void main() {
-                // 配色方案：蓝底，粉橙条纹
-                vec3 bgBlue = vec3(0.05, 0.25, 0.85); 
-                vec3 stripePink = vec3(0.95, 0.2, 0.55);
-                vec3 stripeOrange = vec3(1.0, 0.5, 0.1);
+                // 极致简约的配色：纯白与浅蓝
+                vec3 colorWhite = vec3(1.0, 1.0, 1.0);
+                vec3 colorLightBlue = vec3(0.85, 0.93, 1.0); // 非常干净的浅冰蓝色
 
-                // 使用高频正弦波生成紧凑的流动条纹，且受地貌高度(vElevation)扭曲
-                float stripePattern = sin(vUv.x * 40.0 + vUv.y * 20.0 + vElevation * 15.0 - uTime * 2.5);
-                // 柔和边缘
-                float stripeIntensity = smoothstep(-0.3, 0.3, stripePattern);
+                // 根据高度和 UV 平滑混合这两种颜色
+                float mixRatio = smoothstep(-0.3, 0.4, vElevation + vUv.x * 0.2);
+                vec3 finalColor = mix(colorWhite, colorLightBlue, mixRatio);
 
-                // 粉橙渐变
-                vec3 gradientStripe = mix(stripePink, stripeOrange, vUv.x + vUv.y);
+                // 添加极细微的高光提升质感
+                finalColor += vElevation * 0.05;
 
-                // 将背景蓝和条纹色进行混合
-                vec3 finalColor = mix(bgBlue, gradientStripe, stripeIntensity);
-
-                // 基于 3D 起伏添加假高光/阴影
-                finalColor += vElevation * 0.15; 
-
-                // 输出，赋予一定透明度以融合白底
-                gl_FragColor = vec4(finalColor, 0.9);
+                // 透明度设为 1.0，完全遮盖系统白底，让 WebGL 成为真正的画布
+                gl_FragColor = vec4(finalColor, 1.0);
             }
         `;
 
-        // 应用着色器材质
         const material = new THREE.ShaderMaterial({
-            vertexShader,
-            fragmentShader,
-            uniforms: {
-                uTime: { value: 0 },
-                uMouse: { value: new THREE.Vector2(0.5, 0.5) }
-            },
-            transparent: true,
-            wireframe: false // 改为 true 可以看到酷炫的网格线
+            vertexShader, fragmentShader,
+            uniforms: { uTime: { value: 0 }, uMouse: { value: new THREE.Vector2(0.5, 0.5) } },
+            transparent: true
         });
 
         const plane = new THREE.Mesh(geometry, material);
-        // 稍微倾斜，增加 3D 纵深感
-        plane.rotation.x = -Math.PI * 0.1;
+        plane.rotation.x = -Math.PI * 0.05; // 减小倾斜角度，更平滑
         scene.add(plane);
 
-        // 窗口响应
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
             camera.updateProjectionMatrix();
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // 动画渲染循环
         const clock = new THREE.Clock();
         function animateGLSL() {
-            // 平滑插值传入鼠标位置，使扰动不突兀
             material.uniforms.uMouse.value.x += (normMouseX - material.uniforms.uMouse.value.x) * 0.05;
             material.uniforms.uMouse.value.y += (normMouseY - material.uniforms.uMouse.value.y) * 0.05;
-            
             material.uniforms.uTime.value = clock.getElapsedTime();
             renderer.render(scene, camera);
             requestAnimationFrame(animateGLSL);
