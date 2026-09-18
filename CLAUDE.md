@@ -27,9 +27,9 @@ vercel.json - 复用旧 portfolio 项目的构建、SPA 路由及公开 OSS 媒�
 .gitignore / .vercelignore - 排除原片、凭据与不需发布的本地文件
 </config>
 
-约束：不编造履历、客户、奖项、年份；原片不改动。用户最新同意网页从 Netlify 迁至阿里云大陆 OSS，解决国内直连问题；视频仍在既有 films/，域名仍为 navivideo.me，DNS 留在阿里云，R2 已取消。Netlify 保留为回退，不再作为目标生产托管。不能将部署准备称为已完成迁移，需验证本机直连、HTTPS 和浏览器用户流。前端通过 HTTPS 读取影片；本地预览路径保持不变。所有模块小于 800 行。Node 本地 HTTP 提供媒体 Range 请求。
+约束：不编造履历、客户、奖项、年份；原片不改动。网页复用原 Vercel portfolio 项目，视频仍在 OSS films/，域名 navivideo.me、DNS 留在阿里云。R2 已取消，阿里云网页迁移／备案资源购买已暂停；Netlify 保留回退。前端通过 HTTPS 读取影片；本地预览路径保持不变。所有模块小于 800 行。Node 本地 HTTP 提供媒体 Range 请求。
 路线：参考观察与规格 → 素材索引 → 页面和动效 → 桌面／手机用户流验证。
-当前优先任务：用户授权先排查 Netlify 的 DNS、域名绑定、TLS 和子域名方案，不购买资源。74 个前端文件已上传至既有 OSS，内容校验和 SPA 配置通过；备案基础信息校验通过但缺少可备案服务器／服务码，未提交最终申请。域名与 HTTPS 尚未迁移，自动部署未接通。详细当前证据见 specs/2026-09-18-public-deployment/validation.md 首节。
+当前部署：新版已通过原仓库 main 自动部署至 Vercel。阿里云 @ A=216.198.79.1，www CNAME=761ba57f549d797d.vercel-dns-017.com，TTL 600 秒；films 临时记录暂停。主域名首页、About、Contact、AIGC 深链普通直连均 HTTP 200，浏览器 About 正常；www 固定入口 HTTPS 通过，普通解析传播仍需复验。详细证据见 specs/2026-09-18-public-deployment/validation.md 首节。
 
 最新决策：用户选择复用原 Vercel 账号的 portfolio 项目，连接 williamsnavi21-source/portfolio 仓库。保留旧 Git 历史和原生产部署，先验证新版预览，再切换生产和 @ / www。Netlify 和 OSS 网页托管暂不推进，视频继续使用 OSS。Git 推送 main 后由原项目自动构建；本地保存不会直接发布。
-最新网络证据：films 测试子域名已解析至 Netlify，但 TLS 仍重置；同一 navivideo.me 固定旧 Vercel IP 216.198.79.1 请求返回 200 和旧站标题。生产 @ / www 仍指向 Netlify，未完成修复。
+回退：原站 Git 提交 83918cf89889f4f19d042d3827249561d1af4121 和原 Vercel 部署 Gc3c7Q2DNLeNHASWRWzERF13AcWE 均保留。回退应用时优先在原项目恢复对应部署，避免反复切换 DNS；不得强制推送抹去历史。

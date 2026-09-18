@@ -1,4 +1,13 @@
 # 部署验收
+## 当前生产状态：复用旧项目完成，主域名直连通过（2026-09-18 18:52）
+- 原仓库 main 已正常快进推送至 f0e9fa7，自动产生生产部署 HoVihey7J9E8JEZxb5tj49C98AsB；GitHub Vercel 检查 success。旧 Git 提交、原生产部署、旧素材目录均保留，没有 force push。
+- 阿里云正式 DNS：18:39:02 保存 @ A=216.198.79.1；18:44:26 保存 www CNAME=761ba57f549d797d.vercel-dns-017.com；均启用、默认线路、TTL 600 秒。值来自原项目 Domains 页面，权威 dns17.hichina.com 查询一致。
+- www 已绑定原项目 Production，未启用 apex 到 www 的重定向；原主域名不改名。临时 films 记录于 18:51:19 暂停，控制台确认状态“暂停”，可恢复，不删除记录。
+- curl.exe -q --noproxy "*" 请求 https://navivideo.me/、/about、/contact、/works?category=AIGC 全部 HTTP 200，remote_ip=216.198.79.1，首页标题 WANG FILMS · 影像创作者；不使用 --resolve。主域名浏览器 /about 显示正确介绍、肖像和新封面。此前缓存仍返回 75.2.60.5 时 curl 35，缓存传播后恢复，不能把早期失败伪装成成功。
+- 固定 Vercel IP 的 www HTTPS 请求同样 HTTP 200，证书校验未关闭；普通 www 请求仍待缓存传播复验。以上为本机网络证据，不承诺所有地区运营商都已刷新。
+- 自动更新方式：在 D:/网站作品集 修改，审查 git diff 后提交并 push origin main。仅保存不会发布。origin 指向原 portfolio 仓库；netlify-source 保留旧空仓库地址。项目级提交身份使用原 GitHub 仓库账号，避免 Vercel Hobby 的提交者身份校验失败；未修改全局 Git 配置。
+- 回退：优先恢复原 Vercel 部署 Gc3c7Q2DNLeNHASWRWzERF13AcWE（旧站）或已通过验收的新部署。DNS 回退值 @=75.2.60.5、www=wang-films.netlify.app 只作为记录；该路径曾直连失败，不推荐盲目回退解析。影片始终使用既有 OSS films/，未重复上传或购买资源。
+
 ## 新版 Vercel 预览通过（2026-09-18）
 - GitHub 本机认证已完成；原仓库历史以 merge 保留，新版预览分支 codex/reuse-vercel 已推送，提交 4b78adc42ae2bbbeb9db62a733056a009538606e。GitHub Vercel 状态 success，部署 CrAc1gBEGTaaxPp19dNxRUiJ4NWS 为 Ready，耗时 10 秒，证明 Git 自动触发部署。
 - 预览地址 https://portfolio-du0616kng-williamsnavi21-sources-projects.vercel.app 。浏览器首页视频 duration=12、paused=false、readyState=4；点击完整影片后 dialog.open=true，OSS《重返林芝》duration=1800.064、paused=false、currentTime=30.905，首页预览同时暂停。
