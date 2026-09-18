@@ -1,0 +1,45 @@
+/*
+ * [INPUT]: about.js 的个人内容、肖像和逐字阅读状态。
+ * [OUTPUT]: 全幅页头、窄栏介绍、完整肖像与分类封面脸部优先裁切的响应式排版。
+ * [POS]: About 专属视觉；沿用全站字体、留白与黑白影像体系。
+ * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+ */
+.about-hero img { object-position: center top; }
+.category-banner[href$="category=AIGC"] > img { object-position: 60% 30%; transform-origin: 60% 30%; }
+.about-hero > div { position: relative; z-index: 1; }
+.about-hero h1 { margin-top: 12px; letter-spacing: -.04em; }
+.about-hero > div > span { font-size: 12px; }
+.about-copy { max-width: 680px; padding: 100px 30px; font-size: 22px; line-height: 1.9; }
+.about-label { display: block; font: 11px/1.5 var(--mono); letter-spacing: -.03em; margin-bottom: 36px; color: #a0a0a0; }
+.about-copy p + p { color: #fff; margin-top: 32px; }
+.about-copy .text-link { display: inline-block; margin-top: 36px; }
+.reading-reveal.is-animated > span > span { color: #626262; transition: color 180ms ease-out; }
+.reading-reveal.is-animated > span > span.read { color: #fff; }
+.about-portrait { width: min(620px, calc(100% - 40px)); margin: 0 auto; }
+.about-portrait img { display: block; width: 100%; height: auto; }
+.about-portrait figcaption { display: flex; justify-content: space-between; gap: 12px; padding-top: 14px; font-size: 10px; color: #aaa; }
+.about-ai h2 { font-size: 30px; font-weight: 400; margin: 0 0 30px; letter-spacing: -.04em; }
+.about-clients { padding: 30px 40px 120px; max-width: 1200px; margin: auto; }
+.clients-heading { text-align: center; margin-bottom: 60px; }
+.clients-heading .about-label { margin-bottom: 12px; }
+.clients-heading h2 { font-size: 24px; font-weight: 400; }
+.government-client { text-align: center; border-top: 1px solid #292929; border-bottom: 1px solid #292929; padding: 42px 20px; }
+.government-client h3 { font-size: 23px; font-weight: 400; margin: 0 0 18px; }
+.government-client p { font: 14px/2 'Microsoft YaHei',sans-serif; color: #aaa; }
+.client-grid { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4,1fr); }
+.client-grid li { min-height: 112px; display: grid; place-items: center; border-bottom: 1px solid #292929; font: 20px/1.5 'Microsoft YaHei',sans-serif; }
+@media(max-width:600px) {
+  .about-copy { padding: 64px 24px; font-size: 18px; }
+  .about-label { margin-bottom: 24px; }
+  .about-ai h2 { font-size: 26px; }
+  .about-clients { padding: 16px 20px 70px; }
+  .clients-heading { margin-bottom: 32px; }
+  .government-client { padding: 30px 8px; }
+  .government-client h3 { font-size: 20px; }
+  .client-grid { grid-template-columns: repeat(2,1fr); }
+  .client-grid li { min-height: 88px; font-size: 18px; }
+  .about-portrait figcaption { font-size: 9px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .reading-reveal.is-animated > span > span { color: #fff; transition: none; }
+}

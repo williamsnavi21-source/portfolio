@@ -1,0 +1,14 @@
+{
+  "name": "wang-films",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/server.mjs",
+    "start": "node scripts/server.mjs",
+    "media": "node scripts/prepare-media.mjs",
+    "prepare:release": "node scripts/prepare-release.mjs",
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/verify.mjs && node scripts/verify-motion.mjs"
+  }
+}

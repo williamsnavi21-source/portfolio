@@ -1,0 +1,12 @@
+.git
+.env*
+/assets
+纪录片
+微电影
+宣传片
+AIGC
+本人介绍
+specs
+.tools
+dist
+node_modules

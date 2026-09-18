@@ -1,0 +1,112 @@
+/*
+ * [INPUT]: hero.js 的 DOM、连续位置与 --entrance 入场进度。
+ * [OUTPUT]: 与参考站几何对齐的首页及圆柱标题，不影响其他页面。
+ * [POS]: 首页视觉真源；标题投影和画布始终由同一控制器驱动。
+ * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+ */
+body.is-home { overflow: hidden; }
+body.menu-open .hero { pointer-events: none; }
+.hero {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  min-height: 320px;
+  overflow: hidden;
+  background: #000;
+  touch-action: none;
+  user-select: none;
+  cursor: grab;
+  outline: none;
+  --entrance: 0;
+}
+.hero.dragging, .hero.dragging * { cursor: grabbing; }
+.hero-frames, .hero-frame, .hero-frame img, .hero-frame video, .hero-canvas, .hero-hit, .hero-meta {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.hero-frame { opacity: 0; transition: opacity 500ms ease; }
+.hero-frame.active { opacity: 1; }
+.hero-frame img, .hero-frame video {
+  object-fit: cover;
+  transform: scale(calc(1.14 - var(--entrance) * .14));
+}
+.hero-frame video { opacity: 0; pointer-events: none; }
+.hero-frame.video-ready video { opacity: 1; }
+.hero-canvas { display: block; opacity: 0; pointer-events: none; }
+.canvas-ready .hero-canvas { opacity: 1; }
+.hero-hit { z-index: 1; cursor: grab; }
+.hero-meta { z-index: 3; pointer-events: none; }
+.hero-credit, .hero-category {
+  position: absolute;
+  top: 50%;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -.04em;
+  text-transform: uppercase;
+  opacity: var(--entrance);
+}
+.hero-credit { left: 20px; transform: translateY(-50%); }
+.hero-category { left: 50%; transform: translate(-50%, -50%); }
+.slide-dots {
+  position: absolute;
+  top: 50%;
+  right: 20px;
+  z-index: 4;
+  transform: translateY(-50%);
+  opacity: var(--entrance);
+}
+.slide-dots button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  width: 30px;
+  height: 6px;
+  position: relative;
+}
+.slide-dots button::after { content: ''; position: absolute; inset: -2px -8px; }
+.slide-dots span { width: 14px; height: 1px; background: #ffffff50; transition: width 350ms, background 350ms; }
+.slide-dots [aria-current=true] span { width: 25px; background: #fff; }
+.title-reel {
+  position: absolute;
+  bottom: 8px;
+  left: 50%;
+  width: 360px;
+  height: 230px;
+  transform: translateX(-50%);
+  perspective: 680px;
+  text-align: center;
+  z-index: 3;
+  pointer-events: none;
+}
+.reel-cylinder { position: absolute; inset: 0; transform-style: preserve-3d; }
+.reel-title {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  padding: 0;
+  margin: 0;
+  color: #fff;
+  text-align: center;
+  font: 400 24px/1 var(--mono);
+  letter-spacing: -.04em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  backface-visibility: hidden;
+  will-change: transform, opacity;
+  cursor: pointer;
+}
+.reel-title span { display: inline-block; }
+.reel-title:focus-visible { outline-offset: 8px; }
+@media(max-width:600px) {
+  .reel-title { font-size: 24px; }
+  .hero-credit { left: 20px; }
+  .slide-dots { right: 20px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .hero-frame, .slide-dots span { transition: none; }
+  .hero-frame img { transform: none; }
+}

@@ -1,0 +1,146 @@
+{
+  "film-01": {
+    "poster": "assets/covers/film-01.jpg",
+    "preview": "assets/film-01-preview-12s-v2.mp4"
+  },
+  "film-02": {
+    "poster": "assets/covers/film-02.jpg"
+  },
+  "film-03": {
+    "poster": "assets/covers/film-03.jpg"
+  },
+  "film-04": {
+    "poster": "assets/covers/film-04.jpg",
+    "preview": "assets/film-04-preview-12s-v2.mp4"
+  },
+  "film-05": {
+    "poster": "assets/covers/film-05.jpg",
+    "preview": "assets/film-05-preview-12s-v2.mp4"
+  },
+  "film-06": {
+    "poster": "assets/covers/film-06.jpg"
+  },
+  "film-07": {
+    "poster": "assets/covers/film-07.jpg"
+  },
+  "film-08": {
+    "poster": "assets/covers/film-08.jpg"
+  },
+  "film-09": {
+    "poster": "assets/covers/film-09.jpg"
+  },
+  "film-10": {
+    "poster": "assets/covers/film-10.jpg"
+  },
+  "film-11": {
+    "poster": "assets/covers/film-11.jpg"
+  },
+  "film-12": {
+    "poster": "assets/covers/film-12.jpg"
+  },
+  "film-13": {
+    "poster": "assets/covers/film-13.jpg"
+  },
+  "film-14": {
+    "poster": "assets/covers/film-14.jpg"
+  },
+  "film-15": {
+    "poster": "assets/covers/film-15.jpg"
+  },
+  "film-16": {
+    "poster": "assets/covers/film-16.jpg"
+  },
+  "film-17": {
+    "poster": "assets/covers/film-17.jpg",
+    "preview": "assets/film-17-preview-12s-v2.mp4"
+  },
+  "film-18": {
+    "poster": "assets/covers/film-18.jpg"
+  },
+  "film-19": {
+    "poster": "assets/covers/film-19.jpg"
+  },
+  "film-40": {
+    "poster": "assets/covers/film-40.jpg",
+    "src": "assets/images/film-40.jpg"
+  },
+  "film-41": {
+    "poster": "assets/covers/film-41.jpg",
+    "src": "assets/images/film-41.jpg"
+  },
+  "film-42": {
+    "poster": "assets/covers/film-42.jpg",
+    "src": "assets/images/film-42.jpg"
+  },
+  "film-43": {
+    "poster": "assets/covers/film-43.jpg",
+    "src": "assets/images/film-43.jpg"
+  },
+  "film-44": {
+    "poster": "assets/covers/film-44.jpg",
+    "src": "assets/images/film-44.jpg"
+  },
+  "film-20": {
+    "poster": "assets/covers/film-20.jpg",
+    "src": "assets/images/film-20.jpg"
+  },
+  "film-21": {
+    "poster": "assets/covers/film-21.jpg",
+    "src": "assets/images/film-21.jpg"
+  },
+  "film-22": {
+    "poster": "assets/covers/film-22.jpg",
+    "preview": "assets/film-22-preview-12s-v2.mp4"
+  },
+  "film-23": {
+    "poster": "assets/covers/film-23.jpg"
+  },
+  "film-24": {
+    "poster": "assets/covers/film-24.jpg"
+  },
+  "film-25": {
+    "poster": "assets/covers/film-25.jpg"
+  },
+  "film-26": {
+    "poster": "assets/covers/film-26.jpg"
+  },
+  "film-27": {
+    "poster": "assets/covers/film-27.jpg"
+  },
+  "film-28": {
+    "poster": "assets/covers/film-28.jpg"
+  },
+  "film-29": {
+    "poster": "assets/covers/film-29.jpg"
+  },
+  "film-30": {
+    "poster": "assets/covers/film-30.jpg"
+  },
+  "film-31": {
+    "poster": "assets/covers/film-31.jpg"
+  },
+  "film-32": {
+    "poster": "assets/covers/film-32.jpg"
+  },
+  "film-33": {
+    "poster": "assets/covers/film-33.jpg"
+  },
+  "film-34": {
+    "poster": "assets/covers/film-34.jpg"
+  },
+  "film-35": {
+    "poster": "assets/covers/film-35.jpg"
+  },
+  "film-36": {
+    "poster": "assets/covers/film-36.jpg"
+  },
+  "film-37": {
+    "poster": "assets/covers/film-37.jpg"
+  },
+  "film-38": {
+    "poster": "assets/covers/film-38.jpg"
+  },
+  "film-39": {
+    "poster": "assets/covers/film-39.jpg"
+  }
+}

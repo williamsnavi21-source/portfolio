@@ -1,0 +1,34 @@
+<!doctype html>
+<!-- [INPUT]: src/app.js 与公共、首页、About 样式。[OUTPUT]: 网站语义入口。[POS]: 全站页面壳。
+[PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md -->
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="WANG FILMS · 影像创作者。纪录片、微电影、宣传片与 AIGC 影像作品。">
+  <title>WANG FILMS · 影像创作者</title>
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/src/style.css">
+  <link rel="stylesheet" href="/src/hero.css">
+  <link rel="stylesheet" href="/src/about.css">
+  <script type="module" src="/src/app.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">跳至内容</a>
+  <header class="navigation">
+    <div class="nav-bar"><a class="wordmark" href="/" aria-label="WANG FILMS 首页">WANG<span>FILMS</span></a><button class="menu-toggle" aria-label="打开菜单" aria-expanded="false" aria-controls="menu"><span class="bracket">[</span><span class="menu-lines"></span><span class="bracket">]</span></button></div>
+    <nav id="menu" class="menu-panel" aria-label="主导航" inert>
+      <a href="/" style="--menu-index:0"><span aria-label="HOME"><span class="menu-word">HOME</span><span class="menu-word" aria-hidden="true">HOME</span></span><small>01</small></a>
+      <a href="/about" style="--menu-index:1"><span aria-label="ABOUT"><span class="menu-word">ABOUT</span><span class="menu-word" aria-hidden="true">ABOUT</span></span><small>02</small></a>
+      <a href="/works" style="--menu-index:2"><span aria-label="WORKS"><span class="menu-word">WORKS</span><span class="menu-word" aria-hidden="true">WORKS</span></span><small>03</small></a>
+      <a href="/works?category=AIGC" style="--menu-index:3"><span aria-label="AIGC"><span class="menu-word">AIGC</span><span class="menu-word" aria-hidden="true">AIGC</span></span><small>04</small></a>
+      <a href="/contact" style="--menu-index:4"><span aria-label="CONTACT"><span class="menu-word">CONTACT</span><span class="menu-word" aria-hidden="true">CONTACT</span></span><small>05</small></a>
+      <div class="menu-contact"><a href="mailto:973132021@qq.com">973132021@qq.com ↗</a><span>影像创作者</span></div>
+    </nav>
+  </header>
+  <main id="main" tabindex="-1"></main>
+  <div class="page-curtain" aria-hidden="true"></div>
+  <div class="intro" aria-hidden="true"><div class="intro-top"><span>WANG FILMS</span><span>影像创作者</span></div><div class="intro-mark">WANG FILMS</div><div class="intro-bottom"><span>PICTURES IN MOTION</span><span class="intro-count">000</span></div><div class="intro-progress"></div></div>
+</body>
+</html>

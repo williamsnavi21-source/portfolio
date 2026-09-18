@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.vercel/
+.netlify/
+.tools/
+.env
+.env.*
+!.env.example
+/assets/
+纪录片/
+微电影/
+宣传片/
+AIGC/
+本人介绍/
+specs/**/reference/
+specs/**/reference-home.html
+*.log

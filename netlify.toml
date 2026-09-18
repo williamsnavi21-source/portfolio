@@ -1,0 +1,41 @@
+# [INPUT]: 已验收的前端源码、public 素材与真实媒体配置。
+# [OUTPUT]: Netlify 静态构建和页面深链路由。
+# [POS]: 当前发布平台配置；只发布 dist，不上传工作区原片。
+# [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "24"
+  MEDIA_BASE_URL = "https://wang-films-media.oss-cn-hangzhou.aliyuncs.com/films"
+
+[[redirects]]
+  from = "/about"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/works"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/works-listing"
+  to = "/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/works/*"
+  to = "/index.html"
+  status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
