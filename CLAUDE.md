@@ -21,10 +21,11 @@ specs/2026-09-18-public-deployment/ - 域名、视频存储及自动部署规格
 <config>
 package.json - 启动、生成素材、验证入口
 index.html - 语义页面入口与元数据
-netlify.toml - Netlify dist 发布、真实 OSS 媒体根地址、构建及页面深链路由
+netlify.toml - 迁移前 Netlify 发布配置，保留回退；包含共用 OSS 媒体根地址
 vercel.json - 先前准备的 Vercel 配置，当前不使用该平台发布
 .gitignore / .vercelignore - 排除原片、凭据与不需发布的本地文件
 </config>
 
-约束：不编造履历、客户、奖项、年份；原片不改动。用户已选 Netlify 网页托管、阿里云 OSS 完整影片存储及 navivideo.me 域名，要求完整媒体接通后才上线；DNS 留在阿里云，先前 R2 方案已取消。不能将部署准备称为已上线。前端通过 HTTPS 读取影片；本地预览路径保持不变。所有模块小于 800 行。Node 本地 HTTP 提供媒体 Range 请求。
+约束：不编造履历、客户、奖项、年份；原片不改动。用户最新同意网页从 Netlify 迁至阿里云大陆 OSS，解决国内直连问题；视频仍在既有 films/，域名仍为 navivideo.me，DNS 留在阿里云，R2 已取消。Netlify 保留为回退，不再作为目标生产托管。不能将部署准备称为已完成迁移，需验证本机直连、HTTPS 和浏览器用户流。前端通过 HTTPS 读取影片；本地预览路径保持不变。所有模块小于 800 行。Node 本地 HTTP 提供媒体 Range 请求。
 路线：参考观察与规格 → 素材索引 → 页面和动效 → 桌面／手机用户流验证。
+迁移状态：74 个前端文件已上传至既有 OSS，内容校验和 SPA 配置通过；阿里云域名查询显示 navivideo.me 未备案，待用户决定备案或地域，域名与 HTTPS 尚未迁移，自动部署未接通。详细当前证据见 specs/2026-09-18-public-deployment/validation.md 首节。

@@ -1,4 +1,16 @@
 # 部署验收
+## 当前有效状态：大陆网页迁移待备案决策（2026-09-18）
+- 用户同意修复国内直连并迁入大陆 OSS，随后完成充值。旧站仍在 Netlify，以下历史“发布成功”不代表大陆直连验收通过。
+- `MEDIA_BASE_URL=https://wang-films-media.oss-cn-hangzhou.aliyuncs.com/films; npm run build` 退出 0，74 文件、19,610,802 字节。
+- 浏览器分批上传 index.html、assets/、assets/covers/、assets/images/、src/。上传中出现账号欠费；用户充值后恢复并补齐，未购买套餐或修改 films/。
+- Node fetch 对 dist 的 74 个文件执行 HTTPS HEAD；全部 200，ETag 去引号并转小写后与本地 MD5 全部一致（74/74，退出 0）。JS 为 application/javascript，CSS 为 text/css，JSON 为 application/json。
+- OSS 控制台已保存：默认首页 index.html、子目录首页未开通、默认 404 页 index.html、错误响应码 200。默认 OSS 域名 HTML 响应强制下载，不能把它当正式网站网址。
+- 绑定 navivideo.me / www 的面板未给出可提交按钮，未成功绑定。备案官网 https://beian.aliyun.com 的“查询已备案域名”输入 navivideo.me，弹窗明确为“navivideo.me，未备案”；当前账号亦无备案信息。并未把此结果擅自推断为 .me 后缀不能备案。
+- 待用户决定补办 ICP、提供既有有效备案号或改用香港地域；大陆域名/HTTPS/用户流尚未完成。没有切换 DNS，当前 @ A 75.2.60.5、www CNAME wang-films.netlify.app 保留。
+- GitHub 仓库和自动部署仍未连接，不宣称修改后已能自动更新。
+
+以下为验收条件与历史过程记录，状态以上方最新记录为准。
+
 - 没有 MEDIA_BASE_URL 时构建必须失败；正式产物仅包含前端必需文件。
 - 44 张封面、7 个图片作品及 5 部短预览存在；37 部完整影片使用 HTTPS 存储地址。
 - 本地首页、分类、播放器、About 与联系保持可用。
