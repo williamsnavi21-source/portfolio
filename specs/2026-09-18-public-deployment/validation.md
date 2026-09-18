@@ -1,5 +1,6 @@
 # 部署验收
 ## 当前有效状态：大陆网页迁移待备案决策（2026-09-18）
+- 用户随后明确选择“办理 ICP 备案，继续大陆托管”。已点击开始备案，出现代备案服务协议和信息收集声明；等待明确同意，不替用户默认接受，尚未进入主体表单或提交备案申请。
 - 用户同意修复国内直连并迁入大陆 OSS，随后完成充值。旧站仍在 Netlify，以下历史“发布成功”不代表大陆直连验收通过。
 - `MEDIA_BASE_URL=https://wang-films-media.oss-cn-hangzhou.aliyuncs.com/films; npm run build` 退出 0，74 文件、19,610,802 字节。
 - 浏览器分批上传 index.html、assets/、assets/covers/、assets/images/、src/。上传中出现账号欠费；用户充值后恢复并补齐，未购买套餐或修改 films/。
