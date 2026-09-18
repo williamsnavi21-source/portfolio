@@ -4,6 +4,11 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "installCommand": "echo No dependencies required",
+  "build": {
+    "env": {
+      "MEDIA_BASE_URL": "https://wang-films-media.oss-cn-hangzhou.aliyuncs.com/films"
+    }
+  },
   "rewrites": [
     { "source": "/about", "destination": "/index.html" },
     { "source": "/contact", "destination": "/index.html" },

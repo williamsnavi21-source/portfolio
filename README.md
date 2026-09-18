@@ -31,6 +31,7 @@ npm start
 完整影片已接入阿里云 OSS（杭州），37 个文件合计 9,430,865,421 字节。网页正式发布及域名切换状态以部署规格的 validation.md 为准。
 
 ## 公网发布准备
+最新选择：复用原 Vercel `portfolio` 项目及 `williamsnavi21-source/portfolio` 仓库。新版先发布预览再切换生产；下方阿里云网页迁移记录已暂停，影片继续使用 OSS。`vercel.json` 包含公开的媒体根地址、构建命令和 SPA 路由，部署无需上传 9.43GB 原片。未来修改后提交并推送到 `main`，由 Vercel 自动构建发布；本地保存不等于自动上线。
 现有网址：https://navivideo.me ，DNS 仍指向 Netlify，国内直连未通过验收。用户已同意迁至阿里云大陆 OSS，74 个前端文件已上传且内容校验通过、SPA 路由已配置；阿里云查询域名显示“未备案”，用户已决定办理 ICP 备案并进入个人备案表单，待本人补充资料。尚未绑定 OSS 域名或切换 DNS。Netlify 作为回退版本保留。GitHub 私有源码仓库已创建，自动部署尚未接通，保存本地文件不会自动更新网站。
 1. 本地运行 `npm run prepare:release`，生成 public 内可提交的网页素材副本（需要 FFmpeg）；原片不改动。
 2. 将完整影片按原目录结构上传所选对象存储，确认 HTTPS 和 Range 可用。

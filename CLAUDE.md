@@ -22,7 +22,7 @@ specs/2026-09-18-public-deployment/ - 域名、视频存储及自动部署规格
 package.json - 启动、生成素材、验证入口
 index.html - 语义页面入口与元数据
 netlify.toml - 迁移前 Netlify 发布配置，保留回退；包含共用 OSS 媒体根地址
-vercel.json - 先前准备的 Vercel 配置，当前不使用该平台发布
+vercel.json - 复用旧 portfolio 项目的构建、SPA 路由及公开 OSS 媒体地址；不是凭据
 .gitignore / .vercelignore - 排除原片、凭据与不需发布的本地文件
 </config>
 
@@ -30,4 +30,5 @@ vercel.json - 先前准备的 Vercel 配置，当前不使用该平台发布
 路线：参考观察与规格 → 素材索引 → 页面和动效 → 桌面／手机用户流验证。
 当前优先任务：用户授权先排查 Netlify 的 DNS、域名绑定、TLS 和子域名方案，不购买资源。74 个前端文件已上传至既有 OSS，内容校验和 SPA 配置通过；备案基础信息校验通过但缺少可备案服务器／服务码，未提交最终申请。域名与 HTTPS 尚未迁移，自动部署未接通。详细当前证据见 specs/2026-09-18-public-deployment/validation.md 首节。
 
-最新网络证据：films 测试子域名已解析至 Netlify，但 TLS 仍重置；同一 navivideo.me 固定旧 Vercel IP 请求返回 200 和旧站标题。正等待用户选择在当前 Vercel 账号新建新版项目或登录旧账号复用；生产 @ / www 仍指向 Netlify，未完成修复。
+最新决策：用户选择复用原 Vercel 账号的 portfolio 项目，连接 williamsnavi21-source/portfolio 仓库。保留旧 Git 历史和原生产部署，先验证新版预览，再切换生产和 @ / www。Netlify 和 OSS 网页托管暂不推进，视频继续使用 OSS。Git 推送 main 后由原项目自动构建；本地保存不会直接发布。
+最新网络证据：films 测试子域名已解析至 Netlify，但 TLS 仍重置；同一 navivideo.me 固定旧 Vercel IP 216.198.79.1 请求返回 200 和旧站标题。生产 @ / www 仍指向 Netlify，未完成修复。

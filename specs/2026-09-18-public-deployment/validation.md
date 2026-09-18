@@ -1,4 +1,10 @@
 # 部署验收
+## 当前任务：旧 Vercel 项目已找到（2026-09-18）
+- 用户选择“登录原账号复用旧项目”。打开 Vercel 后已自动登录，团队 williamsnavi21-sources-projects 的 UI 显示 portfolio 项目、绑定 navivideo.me、GitHub 仓库 williamsnavi21-source/portfolio。
+- 原生产部署 Ready：Gc3c7Q2DNLeNHASWRWzERF13AcWE，网址 portfolio-2jduus091-williamsnavi21-sources-projects.vercel.app，稳定项目域名 portfolio-smoky-one-83.vercel.app。来源 main 的 83918cf89889f4f19d042d3827249561d1af4121，界面明确 push main 更新生产。
+- 连接器 list_projects 曾返回空，get_project 返回 idOrName 参数缺失（虽然已传 schema 要求的 projectId），不能据此否定 UI 项目存在。后续以旧项目 UI 和官方 CLI 核验。
+- 尚未发布新版到 Vercel，正式 DNS 未切换。
+
 ## 最新发现：旧 Vercel 入口正常，新子域名仍未恢复（2026-09-18 17:35）
 - 用户重新打开浏览器后，通用 `cua.getState()` 仍报错；使用受支持的 `cua.getBrowser({url})` 返回 iab 1，`browser.tabs.list()` 与 DOM 操作恢复。阿里云 DNS 控制台完整记录只有原 @ / www 两条，域名注册列表显示状态正常。
 - 为同一公开作品站新增 Netlify domain_aliases 中 films.navivideo.me，保留 www 和主域名。阿里云于 17:33:24 保存 films CNAME wang-films.netlify.app，默认线路、TTL 10 分钟、权重 1、启用；控制台显示共 3 条，原两条更新时间未改变。权威 DNS 已返回新 CNAME。
