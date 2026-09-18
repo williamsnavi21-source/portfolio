@@ -1,4 +1,6 @@
 # 部署验收
+最终复验（2026-09-18 18:55）：www 普通 curl.exe -q --noproxy "*" GET 返回 HTTP 200、remote_ip=216.198.79.65、标题 WANG FILMS · 影像创作者；未固定 IP、未关闭证书校验。浏览器 https://www.navivideo.me/ 显示新版首页。两条 Vercel CNAME 入口 64.29.17.1 / 216.198.79.1 的固定 www HEAD 也均 200。下文缓存传播中的失败状态已解除；不宣称所有地区网络都已验收。最终文档提交 0527cb8 已再次 push main，继续触发原项目自动部署。
+
 ## 当前生产状态：复用旧项目完成，主域名直连通过（2026-09-18 18:52）
 - 原仓库 main 已正常快进推送至 f0e9fa7，自动产生生产部署 HoVihey7J9E8JEZxb5tj49C98AsB；GitHub Vercel 检查 success。旧 Git 提交、原生产部署、旧素材目录均保留，没有 force push。
 - 阿里云正式 DNS：18:39:02 保存 @ A=216.198.79.1；18:44:26 保存 www CNAME=761ba57f549d797d.vercel-dns-017.com；均启用、默认线路、TTL 600 秒。值来自原项目 Domains 页面，权威 dns17.hichina.com 查询一致。
