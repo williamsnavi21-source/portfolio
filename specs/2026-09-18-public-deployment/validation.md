@@ -1,4 +1,12 @@
 # 部署验收
+## 最新发现：旧 Vercel 入口正常，新子域名仍未恢复（2026-09-18 17:35）
+- 用户重新打开浏览器后，通用 `cua.getState()` 仍报错；使用受支持的 `cua.getBrowser({url})` 返回 iab 1，`browser.tabs.list()` 与 DOM 操作恢复。阿里云 DNS 控制台完整记录只有原 @ / www 两条，域名注册列表显示状态正常。
+- 为同一公开作品站新增 Netlify domain_aliases 中 films.navivideo.me，保留 www 和主域名。阿里云于 17:33:24 保存 films CNAME wang-films.netlify.app，默认线路、TTL 10 分钟、权重 1、启用；控制台显示共 3 条，原两条更新时间未改变。权威 DNS 已返回新 CNAME。
+- 新子域名固定 Netlify IP 52.74.6.109 的 HTTPS 仍返回 curl 35 Connection was reset。Netlify `provisionSiteTLSCertificate` 返回 422 Unprocessable Entity，尚未签出 films 证书；此前证书仅覆盖根域名和 www。不能宣称测试子域名可用。
+- 关键对照：`curl.exe -q --noproxy "*" -v -I --resolve navivideo.me:443:216.198.79.1 --connect-timeout 8 --max-time 12 https://navivideo.me/` 退出 0，TLS 成功且 HTTP 200，Server: Vercel。随后 GET 抽取 title 为 `Navi Wang | film`，确认是旧网站，不是新版 WANG FILMS。此命令只对单次请求固定 IP，未改变 DNS 或本机 hosts。
+- 推论：在本次本机网络中，同一自定义域名走旧 Vercel 地址可访问，走 Netlify 地址被重置；不能把故障直接归因为域名未备案或根域名整体不可用。更换二级名称在当前 Netlify 路径下尚未解决故障。
+- Vercel 连接器只读查询：当前 team_HhXV8eClgyN9uZq9OPq24q0b（williamsnavi21-sources-projects）项目数 0，旧项目不在这个连接团队。已询问用户在当前账号新建新版 Vercel 项目，还是登录原账号复用旧项目；未创建 Vercel 项目、未切换 DNS、未购买资源。
+
 ## 当前有效状态：优先排查 Netlify 域名访问（2026-09-18）
 - 用户授权先检查二级域名／解析方案，当前不继续购买备案资源；大陆迁移未完成，旧站保持。
 - 备案基础资料校验已通过，提示首次备案及账号下无可备案服务器／服务码，最终申请未提交。
