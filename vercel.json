@@ -6,7 +6,8 @@
   "installCommand": "echo No dependencies required",
   "build": {
     "env": {
-      "MEDIA_BASE_URL": "https://wang-films-media.oss-cn-hangzhou.aliyuncs.com/films"
+      "MEDIA_BASE_URL": "https://wang-films-media.oss-cn-hangzhou.aliyuncs.com/films",
+      "LINZHI_COMPAT_PATH": "/playback/film-04.mp4"
     }
   },
   "rewrites": [

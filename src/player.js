@@ -1,16 +1,16 @@
 /**
- * [INPUT]: 单项作品、原始视频路径与 media-url.js 资源地址解析。
+ * [INPUT]: 单项作品、media-url.js 资源地址、video-playback.js 一次兼容回退。
  * [OUTPUT]: openPlayer / closePlayer，原生 dialog 大屏播放器。
  * [POS]: 首页、作品卡片共享的媒体层；关闭即释放媒体并恢复焦点。
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
  */
-let current=null, previousFocus=null;
+let current=null, previousFocus=null, playback=null;
 import { mediaUrl as url } from './media-url.js';
+import { createVideoPlayback } from './video-playback.js';
 export function closePlayer(){
   if(!current)return;
   const dialog=current;current=null;
-  const video=dialog.querySelector('video');
-  if(video){video.pause();video.removeAttribute('src');video.load();}
+  playback?.dispose();playback=null;
   dialog.close();dialog.remove();document.body.classList.remove('player-open');
   previousFocus?.focus({preventScroll:true});
 }
@@ -23,8 +23,7 @@ export function openPlayer(project){
   const close=document.createElement('button');close.className='player-close';close.textContent='关闭 CLOSE ×';close.setAttribute('aria-label','关闭播放器');
   header.append(title,close);
   const media=document.createElement(project.type==='image'?'img':'video');
-  media.src=url(project.src);
-  if(project.type==='image')media.alt=project.title;
+  if(project.type==='image'){media.alt=project.title;media.src=url(project.src);}
   else{media.controls=true;media.playsInline=true;media.preload='metadata';media.poster=url(project.poster);}
   const bottom=document.createElement('div');bottom.className='player-bottom';
   const category=document.createElement('span');category.textContent=`WANG FILMS / ${project.category}`;
@@ -35,10 +34,17 @@ export function openPlayer(project){
   dialog.addEventListener('cancel',event=>{event.preventDefault();closePlayer();});
   dialog.addEventListener('click',event=>{if(event.target===dialog)closePlayer();});
   if(project.type==='video'){
-    media.addEventListener('error',()=>{
-      const message=document.createElement('p');message.className='player-error';message.textContent='无法在当前浏览器播放。';
-      const download=document.createElement('a');download.href=url(project.src);download.download='';download.textContent='下载原片 ↗';message.append(download);bottom.replaceChildren(message);
-    },{once:true});
-    media.play().catch(()=>{});
+    const status=document.createElement('span');status.className='playback-status';status.setAttribute('role','status');
+    const retry=document.createElement('button');retry.textContent='点击播放';retry.hidden=true;
+    const compatible=document.createElement('button');compatible.textContent='兼容播放';compatible.hidden=!project.compatSrc;
+    const download=document.createElement('a');download.href=url(project.src);download.download='';download.textContent='下载原片 ↗';download.hidden=true;
+    const actions=document.createElement('div');actions.className='playback-actions';actions.append(status,retry,compatible,download);bottom.prepend(actions);
+    const controller=createVideoPlayback(media,project,(state,usingCompatibility)=>{
+      status.textContent={ready:'',loading:'正在加载影片…',playing:'',tap:'请点击播放',error:'影片加载失败，请重试。'}[state];
+      retry.hidden=!['tap','error'].includes(state);download.hidden=state!=='error';
+      compatible.disabled=usingCompatibility;compatible.textContent=usingCompatibility?'兼容线路':'兼容播放';
+    });
+    playback=controller;retry.addEventListener('click',controller.play);compatible.addEventListener('click',controller.useCompatibility);
+    void controller.play();
   }
 }

@@ -9,6 +9,6 @@
     "media": "node scripts/prepare-media.mjs",
     "prepare:release": "node scripts/prepare-release.mjs",
     "build": "node scripts/build.mjs",
-    "check": "node scripts/verify.mjs && node scripts/verify-motion.mjs"
+    "check": "node scripts/verify.mjs && node scripts/verify-motion.mjs && node scripts/verify-playback.mjs"
   }
 }

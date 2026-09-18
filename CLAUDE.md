@@ -25,7 +25,7 @@ package.json - 启动、生成素材、验证入口
 index.html - 语义页面入口与元数据
 netlify.toml - 迁移前 Netlify 发布配置，保留回退；包含共用 OSS 媒体根地址
 vercel.json - 复用旧 portfolio 项目的构建、SPA 路由及公开 OSS 媒体地址；不是凭据
-vercel.json 的 /playback/film-04.mp4 - 固定《重返林芝》的兼容播放代理，预览验证中；不代理其他路径或任意来源
+vercel.json 的 /playback/film-04.mp4 - 固定《重返林芝》的兼容播放代理，保留 Range 并覆盖为 inline；原片直连失败后才回退，消耗 Vercel 流量，不代理其他路径或任意来源
 .gitignore / .vercelignore - 排除原片、凭据与不需发布的本地文件
 </config>
 

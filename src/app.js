@@ -1,5 +1,5 @@
 /**
- * [INPUT]: projects.json、media-url.js 资源地址，hero.js 首页、about.js 个人介绍、player.js 大屏播放器、History API。
+ * [INPUT]: projects.json、media-url.js 资源地址，hero.js 首页、about.js 个人介绍、player.js 大屏播放器、video-playback.js 兼容回退、History API。
  * [OUTPUT]: 个人影视站的路由、导航、分类浏览（AIGC 图片置后）、播放器和联系流程。
  * [POS]: 前端编排入口；不编造素材未提供的年份、客户与履历。
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
@@ -7,6 +7,7 @@
 import { mountHero } from './hero.js';
 import { mountAbout } from './about.js';
 import { openPlayer, closePlayer } from './player.js';
+import { createVideoPlayback } from './video-playback.js';
 import { mediaUrl as asset } from './media-url.js';
 const main = document.querySelector('main');
 const menu = document.querySelector('#menu');
@@ -71,15 +72,23 @@ function detail(id) {
   if(!p){notFound();return;}
   document.title=`${p.title} — WANG FILMS`;
   const index=projects.indexOf(p),prev=projects[(index-1+projects.length)%projects.length],next=projects[(index+1)%projects.length];
-  main.innerHTML=`<article class="detail-page"><div class="detail-media ${p.type==='image'?'is-image':''}">${p.type==='image'?`<img src="${asset(p.src)}" alt="${escape(p.title)}">`:`<video controls playsinline preload="metadata" poster="${asset(p.poster)}" aria-label="${escape(p.title)}"><source src="${asset(p.src)}" type="video/mp4"></video><button class="big-play" aria-label="播放${escape(p.title)}">▶</button><p class="video-error" hidden>影片暂时无法播放。<a href="${asset(p.src)}" download>下载原片观看 ↗</a></p>`}</div><div class="detail-body"><h1>${escape(p.title)}</h1><div class="detail-info"><div><span>(INFO)</span><dl><div><dt>作品类型</dt><dd>${p.category}</dd></div><div><dt>时长</dt><dd>${duration(p.duration)}</dd></div><div><dt>画幅</dt><dd>${p.width} × ${p.height}</dd></div></dl></div><div><span>(CREATOR)</span><dl><div><dt>作品集</dt><dd>WANG FILMS</dd></div>${p.subcategory?`<div><dt>系列</dt><dd>${p.subcategory}</dd></div>`:''}<div><dt>联系</dt><dd><a href="mailto:${email}">${email}</a></dd></div></dl></div></div><div class="detail-navigation"><a href="/works/${prev.id}">← PREVIOUS WORK</a><a href="/works">ALL WORKS</a><a href="/works/${next.id}">NEXT WORK →</a></div></div></article>${footer()}`;
+  main.innerHTML=`<article class="detail-page"><div class="detail-media ${p.type==='image'?'is-image':''}">${p.type==='image'?`<img src="${asset(p.src)}" alt="${escape(p.title)}">`:`<video controls playsinline preload="metadata" poster="${asset(p.poster)}" aria-label="${escape(p.title)}"></video><button class="big-play" aria-label="播放${escape(p.title)}">▶</button><p class="video-error" hidden>影片暂时无法播放。<a href="${asset(p.src)}" download>下载原片观看 ↗</a></p>`}</div><div class="detail-body"><h1>${escape(p.title)}</h1><div class="detail-info"><div><span>(INFO)</span><dl><div><dt>作品类型</dt><dd>${p.category}</dd></div><div><dt>时长</dt><dd>${duration(p.duration)}</dd></div><div><dt>画幅</dt><dd>${p.width} × ${p.height}</dd></div></dl></div><div><span>(CREATOR)</span><dl><div><dt>作品集</dt><dd>WANG FILMS</dd></div>${p.subcategory?`<div><dt>系列</dt><dd>${p.subcategory}</dd></div>`:''}<div><dt>联系</dt><dd><a href="mailto:${email}">${email}</a></dd></div></dl></div></div><div class="detail-navigation"><a href="/works/${prev.id}">← PREVIOUS WORK</a><a href="/works">ALL WORKS</a><a href="/works/${next.id}">NEXT WORK →</a></div></div></article>${footer()}`;
   const video=main.querySelector('video');
   if(video){
     const play=main.querySelector('.big-play');
-    play.addEventListener('click',()=>video.play().catch(()=>{main.querySelector('.video-error').hidden=false;}));
-    video.addEventListener('play',()=>play.classList.add('hidden'));
+    const message=main.querySelector('.video-error');
+    const compatible=document.createElement('button');compatible.className='detail-compatible';compatible.textContent='兼容播放';compatible.hidden=!p.compatSrc;
+    main.querySelector('.detail-media').append(compatible);
+    const controller=createVideoPlayback(video,p,(state,usingCompatibility)=>{
+      message.hidden=state!=='error';
+      if(state==='tap'||state==='error')play.classList.remove('hidden');
+      compatible.disabled=usingCompatibility;compatible.textContent=usingCompatibility?'兼容线路':'兼容播放';
+    });
+    play.addEventListener('click',controller.play);
+    compatible.addEventListener('click',controller.useCompatibility);
+    video.addEventListener('playing',()=>play.classList.add('hidden'));
     video.addEventListener('pause',()=>play.classList.remove('hidden'));
-    video.addEventListener('error',()=>{main.querySelector('.video-error').hidden=false;});
-    cleanup=()=>{video.pause();video.removeAttribute('src');video.querySelector('source')?.remove();video.load();};
+    cleanup=controller.dispose;
   }
 }
 function about() {

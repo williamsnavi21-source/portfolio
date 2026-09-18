@@ -1,5 +1,5 @@
 /**
- * [INPUT]: 前端源码、public 发布素材、HTTPS MEDIA_BASE_URL。
+ * [INPUT]: 前端源码、public 发布素材、HTTPS MEDIA_BASE_URL、可选 LINZHI_COMPAT_PATH。
  * [OUTPUT]: dist 静态站与指向独立存储的生产作品索引。
  * [POS]: 云端和本地共用的确定性构建；缺少媒体配置时阻止不完整发布。
  * [PROTOCOL]: 变更时更新此头部，然后检查 CLAUDE.md
@@ -16,11 +16,13 @@ const media = new URL(base);
 if(media.protocol!=='https:' || media.username || media.password || media.search || media.hash)throw new Error('MEDIA_BASE_URL 必须是不含凭据和查询参数的 HTTPS 根地址。');
 const projects = JSON.parse(await readFile(path.join(source,'projects.json'),'utf8'));
 const manifest = JSON.parse(await readFile(path.join(root,'public/release-manifest.json'),'utf8'));
+const compatPath = process.env.LINZHI_COMPAT_PATH;
+if(compatPath && compatPath!=='/playback/film-04.mp4')throw new Error('兼容入口必须为已配置的固定影片路径。');
 const prepared = projects.map(project=>{
   const entry = manifest[project.id];
   if(!entry?.poster || (project.type==='image'&&!entry.src) || (project.featured>=0&&!entry.preview))throw new Error(`发布素材不完整：${project.id}，请运行 npm run prepare:release。`);
   const src = project.type==='image' ? entry.src : media.href.replace(/\/$/,'')+'/'+project.src.split('/').map(encodeURIComponent).join('/');
-  return {...project,...entry,src,posterSource:null};
+  return {...project,...entry,src,posterSource:null,...(project.id==='film-04'&&compatPath?{compatSrc:compatPath}:{})};
 });
 for(const entry of Object.values(manifest))for(const resource of Object.values(entry)) {
   const resolved = path.resolve(root,'public',resource);
