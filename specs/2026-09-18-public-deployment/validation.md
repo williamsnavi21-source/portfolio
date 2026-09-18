@@ -1,4 +1,16 @@
 # 部署验收
+## 当前有效状态：优先排查 Netlify 域名访问（2026-09-18）
+- 用户授权先检查二级域名／解析方案，当前不继续购买备案资源；大陆迁移未完成，旧站保持。
+- 备案基础资料校验已通过，提示首次备案及账号下无可备案服务器／服务码，最终申请未提交。
+- `Resolve-DnsName ... -Server dns17.hichina.com -DnsOnly`：权威 @ A 为 75.2.60.5，www CNAME 为 wang-films.netlify.app；查询退出 0。
+- 递归 DNS 223.5.5.5 曾返回根域名旧地址 216.198.79.1，119.29.29.29 返回 75.2.60.5。仅说明查询结果不一致，不能据此确定污染或缓存原因。
+- `curl.exe --noproxy "*" -I ... https://wang-films.netlify.app/` 返回 200；www 自定义域名返回 curl 35 Connection was reset。根域名一次 DNS 超时，使用 `--resolve navivideo.me:443:75.2.60.5` 绕过 DNS 后仍返回 curl 35。当前证据不支持“仅缺少 DNS 记录”结论，也不足以断言具体阻断原因。
+- 浏览器工具当前 `cua.getState()` 返回 nodeRepl.fetch request failed，尚无法读取阿里云 DNS 控制台或新增测试记录。继续使用已授权 Netlify CLI 做只读诊断。
+- Netlify CLI `api getSite` 退出 0：custom_domain=navivideo.me，domain_aliases=[www.navivideo.me]，force_ssl=true，ssl=true；当前站点绑定正确。`api showSiteTLSCertificate` 退出 0：state=issued，覆盖上述两域名，有效期至 2026-12-17T04:33:28Z，renewable=true。此为平台证书配置证据，本机未能完成自定义域名 TLS 握手，不能说已验证实际服务端证书。
+- 同一 IP 对照（52.74.6.109）：`curl.exe -q --noproxy "*" -v -I --resolve navivideo.me:443:52.74.6.109 --connect-timeout 8 --max-time 12 https://navivideo.me/` 返回 curl 35，明确提示 failed to receive handshake；换为 wang-films.netlify.app 同 IP 返回 200。同一 IP 的 www HTTPS 同样返回 35；www HTTP 返回 56。失败早于 HTTPS 页面响应，不能归因为应用重定向环，且尚不能确定网络设备或服务端哪个环节重置连接。
+- 本地 netlify.toml 只有页面路径到 index.html 的 200 重写，未发现自定义域名重定向；默认平台地址返回 Link rel=canonical，但不是 3xx Location 跳转。
+- 浏览器工具重置后再次失败；已请用户重新打开阿里云 DNS 内置浏览器标签页，必要时重启 Codex。没有可调用阿里云连接器，未创建新 DNS 记录或 Netlify 别名，避免将未验证子域名作为修复结果。下一步恢复浏览器后先核实测试名称未占用，再添加同一作品站专用测试子域名、签发 HTTPS 并实测；现有两条 DNS 保持不动。
+
 ## 当前有效状态：大陆网页迁移待完成备案（2026-09-18）
 - 用户明确选择“办理 ICP 备案，继续大陆托管”，随后明确同意代备案服务协议和信息收集声明。已按授权点击同意并进入免费自助表单 /pcContainer/selfEntity；网站、navivideo.me、个人已设置。用户需本人填写地区和证件信息并保存草稿；尚未提交最终备案申请、未购买备案资源。
 - 用户同意修复国内直连并迁入大陆 OSS，随后完成充值。旧站仍在 Netlify，以下历史“发布成功”不代表大陆直连验收通过。
