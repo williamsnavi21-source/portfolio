@@ -5,7 +5,7 @@
 4. 接入 Netlify 项目并部署验收合格的产物，验证平台域名；接入 Git 后验证自动部署。
 5. 绑定 navivideo.me，验证 HTTPS 与生产分支自动部署。
 
-状态：1–3 完成。37 部影片已上传，用户确认公开读取；专用桶 wang-films-media 已设公共读、关闭桶级阻止公共访问。37 个对象 HTTPS HEAD 均为 200 且长度与本地一致，抽检 Range 为 206。netlify.toml 已设置真实 MEDIA_BASE_URL，本地构建和检查通过。4 正在发布：CLI getSite 可读取正确项目，但 deploy 返回 Project not found，改用 Netlify 插件提供的官方发布入口。5 尚未切换 DNS，不得报告已上线。
+状态：1–3 完成。37 部影片已上传，用户确认公开读取；专用桶 wang-films-media 已设公共读、关闭桶级阻止公共访问。37 个对象 HTTPS HEAD 均为 200 且长度与本地一致，抽检 Range 为 206。netlify.toml 已设置真实 MEDIA_BASE_URL，本地构建和检查通过。4 已发布生产站（部署 6aacc877e99a5a8204ea94d4），浏览器验证 1080p 完整影片连续播放。5 已完成 navivideo.me 与 www 的绑定、阿里云两条 DNS 切换、证书签发和强制 HTTPS；浏览器正式首页正常。4–5 的 Git 自动部署部分未完成：私有仓库已创建，本地 main 首次提交 8407afb，等待本机 Git 授权后推送并连接 Netlify；不可宣称自动更新已经生效。
 
 上传暂存：.tools/oss-upload/films/ 使用原片硬链接保留原目录，37 个文件合计 9,430,865,421 字节，不额外拷贝原片。控制台扫描显示 37 文件、8994.0MB，对象前缀为 films/。后续 MEDIA_BASE_URL 必须包含 /films（待真实 HTTPS 接通后配置），不能把存储桶根直接用作媒体根。
 

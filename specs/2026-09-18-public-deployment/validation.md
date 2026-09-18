@@ -57,4 +57,4 @@
 - 阿里云 DNS @ A 已改 75.2.60.5（13:26），www CNAME 已改 wang-films.netlify.app（13:30），其他属性不变。权威 DNS 查询和后续本机 DNS 均确认新值。回退值保留在上一节。
 - Netlify TLS API 返回 state=issued，证书覆盖 navivideo.me 与 www.navivideo.me，到期 2026-12-17，renewable=true；已启用 force_ssl。
 - 浏览器 https://navivideo.me 成功呈现 WANG FILMS 首页、5 部精选影片及菜单。命令行直连自定义域名出现 ECONNRESET，与浏览器成功结果存在网络环境差异，不能据此承诺所有网络访问速度。
-- GitHub 登录后创建 Private 仓库 https://github.com/williamsnavi21-source/wang-films；本地 git init -b main，origin 绑定该仓库。97 个文件已暂存，原片、工具缓存及凭据被排除。尚未 commit/push；Git Credential Manager 设备授权等待用户确认账号级权限。
+- GitHub 登录后创建 Private 仓库 https://github.com/williamsnavi21-source/wang-films；本地 git init -b main，origin 绑定该仓库。97 个文件已提交为 8407afb，git diff --cached --check 退出 0；原片、工具缓存及凭据被排除。尚未 push；Git Credential Manager 设备授权等待用户确认账号级权限。Netlify 浏览器通过现有 GitHub 登录成功，无需重复登录。
