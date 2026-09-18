@@ -1,4 +1,10 @@
 # 部署验收
+## 新版 Vercel 预览通过（2026-09-18）
+- GitHub 本机认证已完成；原仓库历史以 merge 保留，新版预览分支 codex/reuse-vercel 已推送，提交 4b78adc42ae2bbbeb9db62a733056a009538606e。GitHub Vercel 状态 success，部署 CrAc1gBEGTaaxPp19dNxRUiJ4NWS 为 Ready，耗时 10 秒，证明 Git 自动触发部署。
+- 预览地址 https://portfolio-du0616kng-williamsnavi21-sources-projects.vercel.app 。浏览器首页视频 duration=12、paused=false、readyState=4；点击完整影片后 dialog.open=true，OSS《重返林芝》duration=1800.064、paused=false、currentTime=30.905，首页预览同时暂停。
+- 本地 npm run build 退出 0，44 作品；启动本地 server 后 npm run check 退出 0，44 作品、11 上传封面、5 个静音 10–15 秒预览、肖像、5 路由、Range/HEAD/非法范围和动效数学检查通过。首次检查因本地服务没启动而 ECONNREFUSED，启动后复验通过。
+- Vercel 构建使用 vercel.json 中公开 OSS 地址；未上传原始影片或凭据。生产与 DNS 切换仍待完成，不能将预览成功当作正式域名修复。
+
 ## 当前任务：旧 Vercel 项目已找到（2026-09-18）
 - 用户选择“登录原账号复用旧项目”。打开 Vercel 后已自动登录，团队 williamsnavi21-sources-projects 的 UI 显示 portfolio 项目、绑定 navivideo.me、GitHub 仓库 williamsnavi21-source/portfolio。
 - 原生产部署 Ready：Gc3c7Q2DNLeNHASWRWzERF13AcWE，网址 portfolio-2jduus091-williamsnavi21-sources-projects.vercel.app，稳定项目域名 portfolio-smoky-one-83.vercel.app。来源 main 的 83918cf89889f4f19d042d3827249561d1af4121，界面明确 push main 更新生产。

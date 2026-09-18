@@ -12,6 +12,7 @@ src/ - 页面、作品数据与交互动效
 scripts/ - 本地 HTTP 服务、素材准备与验证
 assets/ - 从原始素材生成的封面与预览片段
 public/ - 生产发布的轻量素材和映射，可提交源码仓库
+ai/、jlp/、wdy/、xcp/ - 合并保留的旧站图片，仅供历史回退；不参与 dist 构建
 dist/ - build.mjs 生成的生产静态站，不提交仓库
 specs/2026-09-17-film-portfolio/ - 本次规格、执行计划、验证证据
 specs/2026-09-18-public-deployment/ - 域名、视频存储及自动部署规格与进展
