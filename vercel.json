@@ -10,10 +10,20 @@
     }
   },
   "rewrites": [
+    { "source": "/playback/film-04.mp4", "destination": "https://wang-films-media.oss-cn-hangzhou.aliyuncs.com/films/%E7%BA%AA%E5%BD%95%E7%89%87/%E9%87%8D%E8%BF%94%E6%9E%97%E8%8A%9D.mp4" },
     { "source": "/about", "destination": "/index.html" },
     { "source": "/contact", "destination": "/index.html" },
     { "source": "/works", "destination": "/index.html" },
     { "source": "/works-listing", "destination": "/index.html" },
     { "source": "/works/:path*", "destination": "/index.html" }
-  ]
+  ],
+  "headers": [{
+    "source": "/playback/film-04.mp4",
+    "headers": [
+      { "key": "Content-Disposition", "value": "inline" },
+      { "key": "Content-Type", "value": "video/mp4" },
+      { "key": "x-oss-force-download", "value": "false" },
+      { "key": "x-vercel-enable-rewrite-caching", "value": "0" }
+    ]
+  }]
 }

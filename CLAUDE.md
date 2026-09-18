@@ -16,6 +16,7 @@ ai/、jlp/、wdy/、xcp/ - 合并保留的旧站图片，仅供历史回退；�
 dist/ - build.mjs 生成的生产静态站，不提交仓库
 specs/2026-09-17-film-portfolio/ - 本次规格、执行计划、验证证据
 specs/2026-09-18-public-deployment/ - 域名、视频存储及自动部署规格与进展
+specs/2026-09-18-ios-playback/ - iPhone 完整影片故障与兼容播放入口验收
 纪录片/、微电影/、宣传片/、AIGC/ - 用户原始作品，只读保留
 本人介绍/ - 用户提供的原始个人照片，只读；网站使用 assets 优化副本
 </directory>
@@ -24,6 +25,7 @@ package.json - 启动、生成素材、验证入口
 index.html - 语义页面入口与元数据
 netlify.toml - 迁移前 Netlify 发布配置，保留回退；包含共用 OSS 媒体根地址
 vercel.json - 复用旧 portfolio 项目的构建、SPA 路由及公开 OSS 媒体地址；不是凭据
+vercel.json 的 /playback/film-04.mp4 - 固定《重返林芝》的兼容播放代理，预览验证中；不代理其他路径或任意来源
 .gitignore / .vercelignore - 排除原片、凭据与不需发布的本地文件
 </config>
 
